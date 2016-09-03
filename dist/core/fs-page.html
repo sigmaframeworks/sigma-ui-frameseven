@@ -1,0 +1,36 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+-->
+<template data-page.bind="dataPage" class="page block ${hasToolbar?'toolbar-through':''} ${popup?'popup':''} ${!hideHeader?'navbar-fixed':''}">
+  <div class="navbar" if.bind="!hideHeader">
+    <div class="navbar-inner">
+      <div class="left">
+        <a if.bind="!popup && constants.menuPanel=='left' && !showBack && !hideMenu" href="#" data-panel="${framework7.rtl?'right':'left'}" class="link menu icon-only open-panel">
+          <i class="icon icon-bars"></i>
+        </a>
+        <a href="#" class="back link icon-only" if.bind="showBack && !popup">
+          <i class="icon flaticon-back"></i>
+        </a>
+      </div>
+      <div class="center sliding">${pageTitle}</div>
+      <div class="right">
+        <a if.bind="!popup && constants.menuPanel=='right' && !hideMenu" href="#" data-panel="${framework7.rtl?'left':'right'}" class="link menu icon-only open-panel">
+          <i class="icon icon-bars"></i>
+        </a>
+        <a if.bind="popup" href="#" class="link icon-only close-popup">
+          <i class="icon flaticon-close"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Toolbar has additional "toolbar-bottom" class -->
+  <div class="toolbar toolbar-bottom" show.bind="showToolbar" style="z-index:14;">
+    <slot name="toolbar" class="toolbar-inner"></slot>
+  </div>
+  <div class="page-content">
+    <slot></slot>
+  </div>
+  <slot name="speed-dial"></slot>
+</template>

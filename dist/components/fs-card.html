@@ -1,0 +1,9 @@
+<template class="card block">
+  <div class="card-header" if.bind="cardTitle" innerhtml.bind="cardTitle"></div>
+  <div class="card-content">
+      <slot></slot>
+  </div>
+  <div class="card-footer" if.bind="hasFooter">
+    <slot name="footer"></slot>
+  </div>
+</template>

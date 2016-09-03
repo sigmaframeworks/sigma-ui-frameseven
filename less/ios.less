@@ -1,0 +1,38 @@
+// Style overrides and extras for iOS Platform
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+
+@import "_vars.less";
+@import "framework7.ios.less";
+@import "framework7.ios.colors.less";
+
+html[dir="rtl"] {
+  @import "framework7.ios.rtl.less";
+}
+
+.app-container {
+  .pages {
+    background: none;
+  }
+
+  .panel {
+    background: @white;
+  }
+
+  .navbar {
+    background: @navBarBg;
+    color     : @navBarColor;
+  }
+
+  .panel-overlay {
+    background: rgba(0, 0, 0, 0.2);
+    opacity   : 1;
+  }
+
+  .panel-left,
+  .panel-right {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+}

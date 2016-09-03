@@ -1,0 +1,36 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+-->
+<template>
+  <!-- Status bar overlay for full screen mode (PhoneGap) -->
+  <div class="statusbar-overlay"></div>
+  <!-- Panels overlay-->
+  <div class="panel-overlay"></div>
+  <!-- Left panel with reveal effect-->
+  <div class="panel panel-left panel-cover ${class}">
+    <div class="view panel-view">
+      <slot name="menu-links"></slot>
+    </div>
+  </div>
+  <!-- Right panel with reveal effect-->
+  <div class="panel panel-right panel-cover ${class}">
+    <div class="view panel-view">
+      <slot name="menu-links"></slot>
+    </div>
+  </div>
+  <!-- Views -->
+  <div class="views ${class}">
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main hidden">
+      <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+      <div class="pages navbar-fixed"></div>
+    </div>
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-alternate hidden">
+      <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+      <div class="pages navbar-fixed"></div>
+    </div>
+  </div>
+</template>

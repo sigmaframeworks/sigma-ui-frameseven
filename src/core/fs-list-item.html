@@ -1,0 +1,20 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+-->
+<template class="list-item">
+  <div class="item-content">
+    <div class="item-media" if.bind="icon">
+      <span class="icon ${icon}"></span>
+    </div>
+    <div class="item-inner">
+      <div class="item-title col-fill">
+        <slot></slot>
+      </div>
+      <div class="item-after col-auto">
+        <slot name="after"></slot>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,24 @@
+// Style overrides and extras for android Platform
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+
+@import "_vars.less";
+@import "framework7.material.less";
+@import "framework7.material.colors.less";
+
+html[dir="rtl"] {
+  @import "framework7.material.rtl.less";
+}
+
+.app-container {
+  .pages {
+    background: none;
+  }
+
+  .navbar {
+    background: @navBarBg;
+    color     : @navBarColor;
+  }
+}

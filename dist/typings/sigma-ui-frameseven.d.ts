@@ -1,0 +1,17 @@
+import 'lodash';
+import 'moment';
+import 'numeral';
+import 'kramed';
+import 'framework7';
+import './scripts/phonelib';
+import './scripts/countries';
+import './scripts/currencies';
+import { FrameworkConfiguration } from "aurelia-framework";
+export declare function configure(aurelia: FrameworkConfiguration, configCallback: any): void;
+export { FSApplication } from "./utils/fs-application";
+export { FSConstants } from "./utils/fs-constants";
+export { FSEvent } from "./utils/fs-event";
+export { FSFormat } from "./utils/fs-formatters";
+export { FSHttpService } from "./utils/fs-http-service";
+export { FSUtils, _, moment, numeral, kramed } from "./utils/fs-utils";
+export { FSValidationRenderer, validatemap, validatephone } from "./utils/fs-validation";

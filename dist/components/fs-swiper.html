@@ -1,0 +1,10 @@
+<template class="swiper-custom block">
+  <div class="swiper-container swiper-container-horizontal" ref="__container">
+    <div class="swiper-wrapper">
+      <slot></slot>
+    </div>
+    <div class="swiper-pagination" if.bind="showPaginaton" ref="__pager"></div>
+  </div>
+  <div class="swiper-button-prev" if.bind="showControls" ref="__prev"></div>
+  <div class="swiper-button-next" if.bind="showControls" ref="__next"></div>
+</template>

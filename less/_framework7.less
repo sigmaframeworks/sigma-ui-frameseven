@@ -1,0 +1,39 @@
+// Framework7 Overrides
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+
+.list-block {
+  .list-item {
+    display: list-item;
+
+    .item-inner:after {
+      display: block;
+    }
+  }
+
+  .list-item:last-child .item-inner:after,
+  .list-item:last-child .list-item:last-child .item-inner:after {
+    display: none;
+  }
+}
+
+.content-block-title {
+  -webkit-line-clamp: 2 !important;
+  white-space: normal !important;
+  line-height: 1.2;
+}
+
+.item-divider {
+  display: list-item;
+
+  &.with-label {
+    font-size: .8em;
+    padding: 15px 15px 4px;
+    text-transform: none;
+    white-space: normal;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.4;
+  }
+}
