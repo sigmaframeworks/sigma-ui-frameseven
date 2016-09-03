@@ -1,6 +1,6 @@
 {
   "name": "sigma-ui-frameseven",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "A UI Framework for building mobile applications on Framework7+Aurelia",
   "keywords": [
     "ui-framework",
@@ -37,8 +37,7 @@
       "aurelia-fetch-client": "^1.0.0",
       "aurelia-event-aggregator": "^1.0.0",
       "aurelia-templating-resources": "^1.0.0",
-      "aurelia-validation": "^0.11.0",
-      "aurelia-validatejs": "^0.7.0"
+      "aurelia-validation": "^0.12.0"
     },
     "dependencies": {
       "framework7": "^1.4.2",

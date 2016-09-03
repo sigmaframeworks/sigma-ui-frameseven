@@ -11,7 +11,7 @@ import {autoinject, singleton, bindable, customElement, containerless, Container
     CompositionEngine,
     ViewSlot} from "aurelia-framework";
 import {Origin} from "aurelia-metadata";
-import {FSUtils, FSConstants} from "../sigma-ui-frameseven";
+import {FSUtils, FSEvent, FSConstants} from "../sigma-ui-frameseven";
 
 @singleton()
 @autoinject()
@@ -93,9 +93,9 @@ export class FSViewport {
             // Because we want to use dynamic navbar, we need to enable it for this view:
             dynamicNavbar: false
         });
-
+        FSEvent.fireEvent('appready', this.element);
         setTimeout(() => {
-            Dom7(".ui-splash").remove();
+            Dom7(".fs-splash").remove();
         }, 1000);
     }
 
