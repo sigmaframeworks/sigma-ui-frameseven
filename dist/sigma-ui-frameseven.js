@@ -1,9 +1,13 @@
-define(["require", "exports", "./utils/fs-constants", "./utils/fs-utils", "./utils/fs-application", "./utils/fs-constants", "./utils/fs-event", "./utils/fs-formatters", "./utils/fs-http-service", "./utils/fs-utils", "./utils/fs-validation", 'lodash', 'moment', 'numeral', 'kramed', 'framework7', './scripts/phonelib', './scripts/countries', './scripts/currencies'], function (require, exports, fs_constants_1, fs_utils_1, fs_application_1, fs_constants_2, fs_event_1, fs_formatters_1, fs_http_service_1, fs_utils_2, fs_validation_1) {
+define(["require", "exports", "./utils/fs-constants", "./utils/fs-utils", "./utils/fs-application", "./utils/fs-constants", "./utils/fs-event", "./utils/fs-formatters", "./utils/fs-http-service", "./utils/fs-utils", "./utils/fs-validation", 'lodash', 'moment', 'numeral', 'kramed', 'framework7'], function (require, exports, fs_constants_1, fs_utils_1, fs_application_1, fs_constants_2, fs_event_1, fs_formatters_1, fs_http_service_1, fs_utils_2, fs_validation_1) {
     "use strict";
     function configure(aurelia, configCallback) {
         aurelia.globalResources('./core/fs-viewport');
         aurelia.globalResources('./core/fs-page');
-        aurelia.globalResources('./core/fs-content');
+        aurelia.globalResources('./components/fs-content');
+        aurelia.globalResources('./components/fs-list');
+        aurelia.globalResources('./components/fs-card');
+        aurelia.globalResources('./components/fs-swiper');
+        aurelia.globalResources('./inputs/fs-input');
         aurelia.globalResources('./utils/fs-converters');
         fs_utils_1.kramed.setOptions({
             renderer: new fs_utils_1.kramed.Renderer(),
@@ -41,14 +45,14 @@ define(["require", "exports", "./utils/fs-constants", "./utils/fs-utils", "./uti
                 return Configure;
             }
         };
+        if (configCallback !== undefined && typeof configCallback === 'function') {
+            configCallback(Configure);
+        }
         if (Framework7.prototype.device.ios) {
             Dom7('link[rel*="stylesheet"][title="ios"]')[0].disabled = false;
         }
         if (Framework7.prototype.device.android) {
             Dom7('link[rel*="stylesheet"][title="android"]')[0].disabled = false;
-        }
-        if (configCallback !== undefined && typeof configCallback === 'function') {
-            configCallback(Configure);
         }
     }
     exports.configure = configure;
@@ -63,6 +67,4 @@ define(["require", "exports", "./utils/fs-constants", "./utils/fs-utils", "./uti
     exports.numeral = fs_utils_2.numeral;
     exports.kramed = fs_utils_2.kramed;
     exports.FSValidationRenderer = fs_validation_1.FSValidationRenderer;
-    exports.validatemap = fs_validation_1.validatemap;
-    exports.validatephone = fs_validation_1.validatephone;
 });

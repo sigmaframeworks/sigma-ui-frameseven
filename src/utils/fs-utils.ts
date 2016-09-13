@@ -217,7 +217,7 @@ export module FSUtils {
 
     // View realated hooks
     export function loadView(url, next, model?) {
-        if (url.indexOf('.html') == -1 || url.indexOf('www/index.html') != -1) return next('');//url = "home/view.html";
+        if (url.indexOf('.html') == -1 || url.indexOf('index.html') != -1) return next('');//url = "home/view.html";
 
         let __compositionEngine = lazy(CompositionEngine);
 

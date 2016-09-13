@@ -73,13 +73,14 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aure
         FSHttpService.prototype.setBaseUrl = function (url) {
             this.httpClient.baseUrl = url;
         };
-        FSHttpService.prototype.get = function (slug) {
+        FSHttpService.prototype.get = function (slug, useBasic) {
+            if (useBasic === void 0) { useBasic = false; }
             this.appState.info(this.constructor.name, "get [" + slug + "]");
             return this.httpClient
                 .fetch(slug, {
                 method: 'get',
                 mode: 'cors',
-                headers: this.__getHeaders()
+                headers: this.__getHeaders(useBasic)
             })
                 .then(function (resp) { return resp.json(); });
         };
@@ -125,14 +126,15 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aure
             })
                 .then(function (resp) { return resp.json(); });
         };
-        FSHttpService.prototype.__getHeaders = function () {
+        FSHttpService.prototype.__getHeaders = function (useBasic) {
+            if (useBasic === void 0) { useBasic = false; }
             var headers = {
                 'X-Requested-With': 'Fetch',
                 'Accept': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             };
             Object.assign(headers, this.appState.HttpConfig.Headers || {});
-            if (this.appState.HttpConfig.AuthorizationHeader && !isEmpty(this.appState.AuthUser)) {
+            if (this.appState.HttpConfig.AuthorizationHeader && !isEmpty(this.appState.AuthUser) && !useBasic) {
                 var token = this.appState.AuthUser + ":" + this.appState.AuthToken;
                 var hash = btoa(token);
                 headers['Authorization'] = "Basic " + hash;

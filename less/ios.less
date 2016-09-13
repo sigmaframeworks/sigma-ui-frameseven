@@ -4,13 +4,15 @@
 // @copyright   : 2016 Sigma Frameworks
 // @license     : MIT
 
-@import "_vars.less";
+@import "_device-vars.less";
 @import "framework7.ios.less";
 @import "framework7.ios.colors.less";
 
 html[dir="rtl"] {
   @import "framework7.ios.rtl.less";
 }
+@import "_device-extras.less";
+@import "_common.less";
 
 .app-container {
   .pages {
@@ -34,5 +36,13 @@ html[dir="rtl"] {
   .panel-left,
   .panel-right {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .list-group-title {
+    font-size: .8em;
+  }
+  
+  .label-switch input[type="checkbox"]:checked + .checkbox {
+    background: @themeColor;
   }
 }

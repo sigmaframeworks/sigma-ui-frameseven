@@ -11,19 +11,10 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     "use strict";
     var FSCard = (function () {
         function FSCard() {
-            this.cardTitle = '';
-            this.hasFooter = false;
         }
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], FSCard.prototype, "cardTitle", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], FSCard.prototype, "hasFooter", void 0);
         FSCard = __decorate([
-            aurelia_framework_1.customElement('fs-card'), 
+            aurelia_framework_1.customElement('fs-card'),
+            aurelia_framework_1.inlineView('<template class="card block"><slot></slot></template>'), 
             __metadata('design:paramtypes', [])
         ], FSCard);
         return FSCard;
@@ -34,21 +25,32 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         }
         FSCardContent = __decorate([
             aurelia_framework_1.customElement('fs-card-content'),
-            aurelia_framework_1.inlineView('<template class="card-content-inner block"><slot></slot></template>'), 
+            aurelia_framework_1.inlineView('<template class="card-content block"><div class="card-content-inner"><slot></slot></div></template>'), 
             __metadata('design:paramtypes', [])
         ], FSCardContent);
         return FSCardContent;
     }());
     exports.FSCardContent = FSCardContent;
-    var FSTitle = (function () {
-        function FSTitle() {
+    var FSCardHeader = (function () {
+        function FSCardHeader() {
         }
-        FSTitle = __decorate([
-            aurelia_framework_1.customElement('fs-title'),
-            aurelia_framework_1.inlineView('<template class="content-block-title block"><slot></slot></template>'), 
+        FSCardHeader = __decorate([
+            aurelia_framework_1.customElement('fs-card-header'),
+            aurelia_framework_1.inlineView('<template class="card-header block"><slot></slot></template>'), 
             __metadata('design:paramtypes', [])
-        ], FSTitle);
-        return FSTitle;
+        ], FSCardHeader);
+        return FSCardHeader;
     }());
-    exports.FSTitle = FSTitle;
+    exports.FSCardHeader = FSCardHeader;
+    var FSCardFooter = (function () {
+        function FSCardFooter() {
+        }
+        FSCardFooter = __decorate([
+            aurelia_framework_1.customElement('fs-card-footer'),
+            aurelia_framework_1.inlineView('<template class="card-footer block"><slot></slot></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSCardFooter);
+        return FSCardFooter;
+    }());
+    exports.FSCardFooter = FSCardFooter;
 });

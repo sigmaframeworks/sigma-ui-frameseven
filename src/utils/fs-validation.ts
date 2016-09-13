@@ -28,16 +28,13 @@ export class FSValidationRenderer {
     }
 
     add(element: Element, error: ValidationError) {
-        let formGroup: any = getParentByClass(element, 'ui-input-group');
+        let formGroup: any = getParentByClass(element, 'fs-input-group');
         if (!formGroup) return;
-        let isDual = formGroup.isDual;
         formGroup.classList.add('ui-invalid');
         formGroup.classList.remove('ui-valid');
 
-        if (formGroup.errorIcon) {
-            let errs = (formGroup.errorIcon.errors = formGroup.errorIcon.errors || []);
-            errs.push(error);
-        }
+        let errs = (formGroup.errors = formGroup.errors || []);
+        errs.push(error);
 
         // if (formGroup.lastElementChild !== null) formGroup = formGroup.lastElementChild;
 
@@ -54,23 +51,21 @@ export class FSValidationRenderer {
     }
 
     remove(element: Element, error: ValidationError) {
-        let formGroup: any = getParentByClass(element, 'ui-input-group');
+        let formGroup: any = getParentByClass(element, 'fs-input-group');
         if (!formGroup) return;
 
-        if (formGroup.errorIcon) {
-            let errs = formGroup.errorIcon.errors || [];
-            let i = errs.length;
-            while (i--) {
-                let message: any = errs[i];
-                if (message.id == error.id) {
-                    errs.splice(i, 1);
-                    break;
-                }
+        let errs = formGroup.errors || [];
+        let i = errs.length;
+        while (i--) {
+            let message: any = errs[i];
+            if (message.id == error['id']) {
+                errs.splice(i, 1);
+                break;
             }
-            if (errs.length == 0) {
-                formGroup.classList.remove('ui-invalid');
-                formGroup.classList.add('ui-valid');
-            }
+        }
+        if (errs.length == 0) {
+            formGroup.classList.remove('ui-invalid');
+            formGroup.classList.add('ui-valid');
         }
 
         // remove all messages related to the error.

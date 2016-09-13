@@ -200,7 +200,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-metadata", "lodash",
             }
         });
         function loadView(url, next, model) {
-            if (url.indexOf('.html') == -1 || url.indexOf('www/index.html') != -1)
+            if (url.indexOf('.html') == -1 || url.indexOf('index.html') != -1)
                 return next('');
             var __compositionEngine = lazy(aurelia_framework_1.CompositionEngine);
             framework7.showIndicator();
@@ -219,15 +219,10 @@ define(["require", "exports", "aurelia-framework", "aurelia-metadata", "lodash",
                     if (canActivate) {
                         return __compositionEngine.createController(instruction)
                             .then(function (controller) {
-                            __invokeLifecycle(viewModel, 'activate', instruction.model);
                             controller.automate();
-                            __invokeLifecycle(viewModel, 'bind', instruction.model);
                             next(controller.view['fragment']);
-                            setTimeout(function () {
-                                __invokeLifecycle(viewModel, 'attached', null);
-                                controller.view.attached();
-                                framework7.hideIndicator();
-                            }, 200);
+                            controller.view.attached();
+                            framework7.hideIndicator();
                             return true;
                         });
                     }

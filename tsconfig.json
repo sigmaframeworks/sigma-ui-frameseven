@@ -25,8 +25,8 @@
   "filesGlob": [
     "./src/**/*.ts",
     "./typings/index.d.ts",
-    "!./node_modules/**/*.ts",
-    "./node_modules/aurelia-*/**/*.d.ts"
+    "./node_modules/sigma-libs/typings/*.d.ts",
+    "./node_modules/aurelia-validation/dist/amd/*.d.ts"
   ],
   "atom": {
     "rewriteTsconfig": false

@@ -1,7 +1,8 @@
 import { Container } from "aurelia-framework";
+import * as ld from "lodash";
 import * as mm from "moment";
 import * as nm from "numeral";
-export declare var _: any;
+export declare var _: ld.LoDashStatic;
 export declare var kramed: KramedStatic;
 export declare var moment: typeof mm;
 export declare var numeral: nm.Numeral;

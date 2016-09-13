@@ -8,9 +8,6 @@ import 'moment';
 import 'numeral';
 import 'kramed';
 import 'framework7';
-import './scripts/phonelib';
-import './scripts/countries';
-import './scripts/currencies';
 import {FrameworkConfiguration} from "aurelia-framework";
 import {FSConstants} from "./utils/fs-constants";
 import {kramed} from "./utils/fs-utils";
@@ -23,37 +20,15 @@ export function configure(aurelia: FrameworkConfiguration, configCallback) {
     ///** Core **/
     aurelia.globalResources('./core/fs-viewport');
     aurelia.globalResources('./core/fs-page');
-    aurelia.globalResources('./core/fs-content');
-    aurelia.globalResources('./core/fs-list');
-    aurelia.globalResources('./core/fs-card');
 
     ///** Components **/
-    // aurelia.globalResources('./components/ui-menu');
-    // aurelia.globalResources('./components/ui-form');
-    // aurelia.globalResources('./components/ui-ribbon');
-    // aurelia.globalResources('./components/ui-panel');
-    // aurelia.globalResources('./components/ui-login');
-    // aurelia.globalResources('./components/ui-tree');
-    // aurelia.globalResources('./components/ui-datagrid');
-    // aurelia.globalResources('./components/ui-tab-panel');
+    aurelia.globalResources('./components/fs-content');
+    aurelia.globalResources('./components/fs-list');
+    aurelia.globalResources('./components/fs-card');
+    aurelia.globalResources('./components/fs-swiper');
 
     /** Inputs **/
-    // aurelia.globalResources('./inputs/ui-button');
-    // aurelia.globalResources('./inputs/ui-switch');
-    // aurelia.globalResources('./inputs/ui-option');
-    // aurelia.globalResources('./inputs/ui-input');
-    // aurelia.globalResources('./inputs/ui-file');
-    // aurelia.globalResources('./inputs/ui-phone');
-    // aurelia.globalResources('./inputs/ui-markdown');
-    // aurelia.globalResources('./inputs/ui-textarea');
-    // aurelia.globalResources('./inputs/ui-input-dual');
-    // aurelia.globalResources('./inputs/ui-combo');
-    // aurelia.globalResources('./inputs/ui-tags');
-    // aurelia.globalResources('./inputs/ui-language');
-    // aurelia.globalResources('./inputs/ui-date');
-    // aurelia.globalResources('./inputs/ui-date-view');
-    // aurelia.globalResources('./inputs/ui-reorder');
-    // aurelia.globalResources('./inputs/ui-list');
+    aurelia.globalResources('./inputs/fs-input');
 
     /** Utils **/
     aurelia.globalResources('./utils/fs-converters');
@@ -96,15 +71,15 @@ export function configure(aurelia: FrameworkConfiguration, configCallback) {
         }
     }
 
+    if (configCallback !== undefined && typeof configCallback === 'function') {
+        configCallback(Configure);
+    }
+
     if (Framework7.prototype.device.ios) {
         Dom7('link[rel*="stylesheet"][title="ios"]')[0].disabled = false;
     }
     if (Framework7.prototype.device.android) {
         Dom7('link[rel*="stylesheet"][title="android"]')[0].disabled = false;
-    }
-
-    if (configCallback !== undefined && typeof configCallback === 'function') {
-        configCallback(Configure);
     }
 }
 
@@ -114,4 +89,4 @@ export {FSEvent} from "./utils/fs-event";
 export {FSFormat} from "./utils/fs-formatters";
 export {FSHttpService} from "./utils/fs-http-service";
 export {FSUtils, _, moment, numeral, kramed} from "./utils/fs-utils";
-export {FSValidationRenderer, validatemap, validatephone} from "./utils/fs-validation";
+export {FSValidationRenderer} from "./utils/fs-validation";

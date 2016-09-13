@@ -1,0 +1,20 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+-->
+<template class="list-item fs-input-group">
+  <div class="item-content">
+    <slot name="media">
+      <div class="item-media" if.bind="icon">
+        <i class="icon ${icon}"></i>
+      </div>
+    </slot>
+    <div class="item-inner">
+      <slot name="label"></slot>
+      <div class="item-input">
+        <slot></slot>
+      </div>
+    </div>
+  </div>
+</template>

@@ -19,6 +19,7 @@ export declare class FSApplication {
     showPopup(view: any, model: any): void;
     showMainView(view: any): void;
     showLoginView(view: any): void;
+    mainViewBack(url: any): void;
     switchDir(dir: any): void;
     /** App Constants **/
     private __username;

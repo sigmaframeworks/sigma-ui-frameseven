@@ -1,8 +1,8 @@
 export declare class FSCard {
-    cardTitle: string;
-    hasFooter: boolean;
 }
 export declare class FSCardContent {
 }
-export declare class FSTitle {
+export declare class FSCardHeader {
+}
+export declare class FSCardFooter {
 }

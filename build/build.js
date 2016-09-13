@@ -38,7 +38,7 @@ compileToModules.forEach(function(moduleType) {
                 module: moduleType,
                 target: moduleType == 'es2015' ? 'es2015' : 'es5'
             }), ts.reporter.defaultReporter());
-        var tsResult = gulp.src([paths.source], {
+        var tsResult = gulp.src(tsconfig.filesGlob, {
             base: appRoot
         }).pipe(ts(tsProject));
         return tsResult.js
@@ -52,7 +52,7 @@ gulp.task('build-dts', function() {
             target: "es2015",
             module: "es2015"
         }), ts.reporter.defaultReporter());
-    var tsResult = gulp.src([paths.source], {
+    var tsResult = gulp.src(tsconfig.filesGlob, {
         base: appRoot
     }).pipe(ts(tsProject));
     return tsResult.dts.pipe(gulp.dest(paths.output + '/typings'));
@@ -66,7 +66,7 @@ gulp.task('bundle-dts', gulp.series('build-dts', function(done) {
 }));
 
 gulp.task('copy-extras', function() {
-    return gulp.src([paths.typings, paths.scripts, paths.html], {
+    return gulp.src([paths.typings, paths.html], {
         base: appRoot
     }).pipe(gulp.dest(paths.output));
 

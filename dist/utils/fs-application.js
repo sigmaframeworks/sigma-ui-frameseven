@@ -40,6 +40,9 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./fs-util
             Dom7('.view-main').addClass('hidden');
             Dom7('.view-alternate.hidden').removeClass('hidden');
         };
+        FSApplication.prototype.mainViewBack = function (url) {
+            mainView.back({ url: url, force: true, animatePages: true });
+        };
         FSApplication.prototype.switchDir = function (dir) {
             document.dir = dir;
             framework7.rtl = dir == "rtl";

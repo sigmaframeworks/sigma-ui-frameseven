@@ -50,7 +50,11 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                 materialPageLoadDelay: 100,
                 material: Framework7.prototype.device.android,
                 onAjaxStart: function (xhr) { return xhr.open('GET', 'blank.html'); },
-                preprocess: function (content, url, next) { return sigma_ui_frameseven_1.FSUtils.loadView(url, next); }
+                preprocess: function (content, url, next) { return sigma_ui_frameseven_1.FSUtils.loadView(url, next); },
+                onPageBeforeRemove: function (app, page) {
+                    page.container.au.controller.unbind();
+                    page.container.au.controller.detached();
+                }
             });
             if (this.showSplashProgress)
                 framework7.showProgressbar('.fs-splash', this.splashProgressColor);
@@ -68,8 +72,9 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             window.loginView = framework7.addView('.view-alternate', {
                 dynamicNavbar: false
             });
+            sigma_ui_frameseven_1.FSEvent.fireEvent('appready', this.element);
             setTimeout(function () {
-                Dom7(".ui-splash").remove();
+                Dom7(".fs-splash").remove();
             }, 1000);
         };
         __decorate([

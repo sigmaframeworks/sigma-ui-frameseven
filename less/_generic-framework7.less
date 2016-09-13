@@ -1,0 +1,90 @@
+// Framework7 Overrides
+// @description :
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+
+.navbar {
+    .right .link {
+        -ms-flex-pack          : flex-end;
+        -webkit-justify-content: flex-end;
+        justify-content        : flex-end;
+    }
+
+    .left .link {
+        -ms-flex-pack          : flex-start;
+        -webkit-justify-content: flex-start;
+        justify-content        : flex-start;
+    }
+}
+
+.list-block {
+    .card {
+        display: list-item;
+    }
+
+    .list-item {
+        display: list-item;
+
+        .item-inner:after {
+            display: block;
+        }
+    }
+
+    .list-item:last-child .item-inner:after,
+    .list-item:last-child .list-item:last-child .item-inner:after {
+        display: none;
+    }
+}
+
+.content-block-title {
+    -webkit-line-clamp: 2 !important;
+    white-space       : normal !important;
+    line-height       : 1.2;
+}
+
+.item-divider {
+    display   : list-item;
+    margin-top: -1px;
+    padding   : 4px 15px;
+
+    &.with-label {
+        font-size         : .8em;
+        padding           : 15px 15px 4px;
+        text-transform    : none;
+        white-space       : normal;
+        -webkit-line-clamp: 2 !important;
+        line-height       : 1.4;
+    }
+}
+
+.fs-phone-input {
+    .item-input {
+        display    : flex;
+        flex-flow  : row nowrap;
+        align-items: center;
+    }
+
+    .ui-flag {
+        flex     : 0 0 auto;
+        min-width: 18px;
+    }
+
+    input {
+        flex: 1 1 100%;
+    }
+}
+
+.swiper-container {
+    .swiper-pagination {
+        .swiper-pagination-bullet {
+            opacity   : 1;
+            background: fade(black, 20%);
+            box-shadow: 0 0 2px 0 white;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: @themeColor;
+        }
+    }
+}

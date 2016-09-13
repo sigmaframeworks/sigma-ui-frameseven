@@ -15,164 +15,168 @@ import {FSConstants} from "./fs-constants";
 @autoinject()
 export class FSApplication {
 
-	private __logger;
+    private __logger;
 
-	public AppConfig = FSConstants.App;
-	public HttpConfig = FSConstants.Http;
+    public AppConfig = FSConstants.App;
+    public HttpConfig = FSConstants.Http;
 
-	public IsHttpInUse: boolean = false;
-	public IsAuthenticated: boolean = false;
+    public IsHttpInUse: boolean = false;
+    public IsAuthenticated: boolean = false;
 
-	constructor(public router: Router) {
-		this.__logger = getLogger('UIApplication');
-		this.__logger.info('Initialized');
+    constructor(public router: Router) {
+        this.__logger = getLogger('UIApplication');
+        this.__logger.info('Initialized');
 
-		Object.assign(this.AppConfig, FSConstants.App);
-		Object.assign(this.HttpConfig, FSConstants.Http);
-	}
-
-
-	loadPage(view, params = {}) {
-		mainView.loadPage(view);
-	}
-
-	showPopup(view, model) {
-		FSUtils.loadView(view, h => {
-			framework7.popup(h.firstElementChild);
-		}, model);
-	}
-
-	showMainView(view) {
-		mainView.loadPage(view);
-		Dom7('.view-alternate').addClass('hidden');
-		Dom7('.view-main.hidden').removeClass('hidden');
-	}
-	showLoginView(view) {
-		mainView.loadPage(view);
-		Dom7('.view-main').addClass('hidden');
-		Dom7('.view-alternate.hidden').removeClass('hidden');
-	}
-
-	switchDir(dir) {
-		document.dir = dir;
-		framework7.rtl = dir == "rtl";
-		framework7.swipePanel = framework7.rtl && FSConstants.menuPanel == "left" ? "right" : "left";
-		setTimeout(() => {
-			if (mainView.activePage) framework7.initPage(mainView.activePage.view.container)
-			if (loginView.activePage) framework7.initPage(loginView.activePage.view.container)
-		}, 100);
-	}
+        Object.assign(this.AppConfig, FSConstants.App);
+        Object.assign(this.HttpConfig, FSConstants.Http);
+    }
 
 
-	/** App Constants **/
-	private __username;
-	private __userGroup;
-	private __userGroupLabel;
-	private __authUser;
-	private __authToken;
+    loadPage(view, params = {}) {
+        mainView.loadPage(view);
+    }
 
-	get Username() {
-		return this.__username;
-	}
+    showPopup(view, model) {
+        FSUtils.loadView(view, h => {
+            framework7.popup(h.firstElementChild);
+        }, model);
+    }
 
-	set Username(v) {
-		this.__username = v;
-	}
+    showMainView(view) {
+        mainView.loadPage(view);
+        Dom7('.view-alternate').addClass('hidden');
+        Dom7('.view-main.hidden').removeClass('hidden');
+    }
+    showLoginView(view) {
+        mainView.loadPage(view);
+        Dom7('.view-main').addClass('hidden');
+        Dom7('.view-alternate.hidden').removeClass('hidden');
+    }
 
-	get UserGroup() {
-		return this.__userGroup;
-	}
+    mainViewBack(url) {
+        mainView.back({ url: url, force: true, animatePages: true });
+    }
 
-	set UserGroup(v) {
-		this.__userGroup = v;
-	}
+    switchDir(dir) {
+        document.dir = dir;
+        framework7.rtl = dir == "rtl";
+        framework7.swipePanel = framework7.rtl && FSConstants.menuPanel == "left" ? "right" : "left";
+        setTimeout(() => {
+            if (mainView.activePage) framework7.initPage(mainView.activePage.view.container)
+            if (loginView.activePage) framework7.initPage(loginView.activePage.view.container)
+        }, 100);
+    }
 
-	get UserGroupLabel() {
-		return this.__userGroupLabel;
-	}
 
-	set UserGroupLabel(v) {
-		this.__userGroupLabel = v;
-	}
+    /** App Constants **/
+    private __username;
+    private __userGroup;
+    private __userGroupLabel;
+    private __authUser;
+    private __authToken;
 
-	get AuthUser() {
-		return this.__authUser;
-	}
+    get Username() {
+        return this.__username;
+    }
 
-	set AuthUser(v) {
-		this.__authUser = v;
-	}
+    set Username(v) {
+        this.__username = v;
+    }
 
-	get AuthToken() {
-		return this.__authToken;
-	}
+    get UserGroup() {
+        return this.__userGroup;
+    }
 
-	set AuthToken(v) {
-		this.__authToken = v;
-	}
+    set UserGroup(v) {
+        this.__userGroup = v;
+    }
 
-	/** Session State **/
-	session(key, value: any = '§') {
-		if (window.sessionStorage) {
-			if (value === '§') {
-				return JSON.parse(window.sessionStorage.getItem(this.AppConfig.Key + ':' + key));
-			}
-			else if (value === null) {
-				window.sessionStorage.removeItem(this.AppConfig.Key + ':' + key);
-			}
-			else {
-				window.sessionStorage.setItem(this.AppConfig.Key + ':' + key, JSON.stringify(value));
-			}
-		}
-		return null;
-	}
+    get UserGroupLabel() {
+        return this.__userGroupLabel;
+    }
 
-	clearSession() {
-		if (window.sessionStorage) window.sessionStorage.clear();
-	}
+    set UserGroupLabel(v) {
+        this.__userGroupLabel = v;
+    }
 
-	/** Persistent State **/
-	persist(key, value: any = '§') {
-		if (window.localStorage) {
-			if (value === '§') {
-				return JSON.parse(window.localStorage.getItem(this.AppConfig.Key + ':' + key));
-			}
-			else if (value === null) {
-				window.localStorage.removeItem(this.AppConfig.Key + ':' + key);
-			}
-			else {
-				window.localStorage.setItem(this.AppConfig.Key + ':' + key, JSON.stringify(value));
-			}
-		}
-		return null;
-	}
+    get AuthUser() {
+        return this.__authUser;
+    }
 
-	/** Logger **/
-	info(tag, msg, ...rest) {
-		this.__logger.info(`${tag}::${msg}`, rest);
-	}
+    set AuthUser(v) {
+        this.__authUser = v;
+    }
 
-	warn(tag, msg, ...rest) {
-		this.__logger.warn(`${tag}::${msg}`, rest);
-	}
+    get AuthToken() {
+        return this.__authToken;
+    }
 
-	debug(tag, msg, ...rest) {
-		this.__logger.debug(`${tag}::${msg}`, rest);
-	}
+    set AuthToken(v) {
+        this.__authToken = v;
+    }
 
-	error(tag, msg, ...rest) {
-		this.__logger.error(`${tag}::${msg}`, rest);
-	}
+    /** Session State **/
+    session(key, value: any = '§') {
+        if (window.sessionStorage) {
+            if (value === '§') {
+                return JSON.parse(window.sessionStorage.getItem(this.AppConfig.Key + ':' + key));
+            }
+            else if (value === null) {
+                window.sessionStorage.removeItem(this.AppConfig.Key + ':' + key);
+            }
+            else {
+                window.sessionStorage.setItem(this.AppConfig.Key + ':' + key, JSON.stringify(value));
+            }
+        }
+        return null;
+    }
 
-	/** Toast **/
-	private __overlayContainer;
+    clearSession() {
+        if (window.sessionStorage) window.sessionStorage.clear();
+    }
 
-	toast(config) {
-	}
+    /** Persistent State **/
+    persist(key, value: any = '§') {
+        if (window.localStorage) {
+            if (value === '§') {
+                return JSON.parse(window.localStorage.getItem(this.AppConfig.Key + ':' + key));
+            }
+            else if (value === null) {
+                window.localStorage.removeItem(this.AppConfig.Key + ':' + key);
+            }
+            else {
+                window.localStorage.setItem(this.AppConfig.Key + ':' + key, JSON.stringify(value));
+            }
+        }
+        return null;
+    }
 
-	toastSuccess(config) {
-	}
+    /** Logger **/
+    info(tag, msg, ...rest) {
+        this.__logger.info(`${tag}::${msg}`, rest);
+    }
 
-	toastError(config) {
-	}
+    warn(tag, msg, ...rest) {
+        this.__logger.warn(`${tag}::${msg}`, rest);
+    }
+
+    debug(tag, msg, ...rest) {
+        this.__logger.debug(`${tag}::${msg}`, rest);
+    }
+
+    error(tag, msg, ...rest) {
+        this.__logger.error(`${tag}::${msg}`, rest);
+    }
+
+    /** Toast **/
+    private __overlayContainer;
+
+    toast(config) {
+    }
+
+    toastSuccess(config) {
+    }
+
+    toastError(config) {
+    }
 }
