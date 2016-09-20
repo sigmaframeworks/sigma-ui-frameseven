@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aurelia-event-aggregator", "./fs-application"], function (require, exports, aurelia_framework_1, aurelia_fetch_client_1, aurelia_event_aggregator_1, fs_application_1) {
+define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aurelia-event-aggregator", "./fs-application", "././fs-constants"], function (require, exports, aurelia_framework_1, aurelia_fetch_client_1, aurelia_event_aggregator_1, fs_application_1, fs_constants_1) {
     "use strict";
-    var FSHttpService = (function () {
-        function FSHttpService(httpClient, appState, eventAggregator) {
+    var FSHttpClient = (function () {
+        function FSHttpClient(httpClient, appState, eventAggregator) {
             this.httpClient = httpClient;
             this.appState = appState;
             this.eventAggregator = eventAggregator;
@@ -18,7 +18,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aure
             var self = this;
             httpClient.configure(function (config) {
                 config
-                    .withBaseUrl(appState.HttpConfig.BaseUrl)
+                    .withBaseUrl(fs_constants_1.FSConstants.Http.BaseUrl)
                     .withInterceptor({
                     request: function (request) {
                         appState.info(self.constructor.name, "Requesting " + request.method + " " + request.url);
@@ -70,10 +70,10 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aure
                 });
             });
         }
-        FSHttpService.prototype.setBaseUrl = function (url) {
+        FSHttpClient.prototype.setBaseUrl = function (url) {
             this.httpClient.baseUrl = url;
         };
-        FSHttpService.prototype.get = function (slug, useBasic) {
+        FSHttpClient.prototype.get = function (slug, useBasic) {
             if (useBasic === void 0) { useBasic = false; }
             this.appState.info(this.constructor.name, "get [" + slug + "]");
             return this.httpClient
@@ -84,7 +84,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aure
             })
                 .then(function (resp) { return resp.json(); });
         };
-        FSHttpService.prototype.text = function (slug) {
+        FSHttpClient.prototype.text = function (slug) {
             this.appState.info(this.constructor.name, "text [" + slug + "]");
             return this.httpClient
                 .fetch(slug, {
@@ -94,29 +94,31 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aure
             })
                 .then(function (resp) { return resp.text(); });
         };
-        FSHttpService.prototype.put = function (slug, obj) {
+        FSHttpClient.prototype.put = function (slug, obj, useBasic) {
+            if (useBasic === void 0) { useBasic = false; }
             this.appState.info(this.constructor.name, "put [" + slug + "]");
             return this.httpClient
                 .fetch(slug, {
                 method: 'put',
                 body: aurelia_fetch_client_1.json(obj),
                 mode: 'cors',
-                headers: this.__getHeaders()
+                headers: this.__getHeaders(useBasic)
             })
                 .then(function (resp) { return resp.json(); });
         };
-        FSHttpService.prototype.post = function (slug, obj) {
+        FSHttpClient.prototype.post = function (slug, obj, useBasic) {
+            if (useBasic === void 0) { useBasic = false; }
             this.appState.info(this.constructor.name, "post [" + slug + "]");
             return this.httpClient
                 .fetch(slug, {
                 method: 'post',
                 body: aurelia_fetch_client_1.json(obj),
                 mode: 'cors',
-                headers: this.__getHeaders()
+                headers: this.__getHeaders(useBasic)
             })
                 .then(function (resp) { return resp.json(); });
         };
-        FSHttpService.prototype.delete = function (slug) {
+        FSHttpClient.prototype.delete = function (slug) {
             this.appState.info(this.constructor.name, "delete [" + slug + "]");
             return this.httpClient
                 .fetch(slug, {
@@ -126,26 +128,26 @@ define(["require", "exports", "aurelia-framework", "aurelia-fetch-client", "aure
             })
                 .then(function (resp) { return resp.json(); });
         };
-        FSHttpService.prototype.__getHeaders = function (useBasic) {
+        FSHttpClient.prototype.__getHeaders = function (useBasic) {
             if (useBasic === void 0) { useBasic = false; }
             var headers = {
                 'X-Requested-With': 'Fetch',
                 'Accept': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             };
-            Object.assign(headers, this.appState.HttpConfig.Headers || {});
-            if (this.appState.HttpConfig.AuthorizationHeader && !isEmpty(this.appState.AuthUser) && !useBasic) {
+            Object.assign(headers, fs_constants_1.FSConstants.Http.Headers || {});
+            if (fs_constants_1.FSConstants.Http.AuthorizationHeader && !isEmpty(this.appState.AuthToken) && !useBasic) {
                 var token = this.appState.AuthUser + ":" + this.appState.AuthToken;
                 var hash = btoa(token);
                 headers['Authorization'] = "Basic " + hash;
             }
             return headers;
         };
-        FSHttpService = __decorate([
+        FSHttpClient = __decorate([
             aurelia_framework_1.autoinject(), 
             __metadata('design:paramtypes', [aurelia_fetch_client_1.HttpClient, fs_application_1.FSApplication, aurelia_event_aggregator_1.EventAggregator])
-        ], FSHttpService);
-        return FSHttpService;
+        ], FSHttpClient);
+        return FSHttpClient;
     }());
-    exports.FSHttpService = FSHttpService;
+    exports.FSHttpClient = FSHttpClient;
 });

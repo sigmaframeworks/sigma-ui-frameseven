@@ -12,46 +12,77 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./fs-util
     var FSApplication = (function () {
         function FSApplication(router) {
             this.router = router;
-            this.AppConfig = fs_constants_1.FSConstants.App;
-            this.HttpConfig = fs_constants_1.FSConstants.Http;
             this.IsHttpInUse = false;
             this.IsAuthenticated = false;
             this.__logger = aurelia_logging_1.getLogger('UIApplication');
             this.__logger.info('Initialized');
-            Object.assign(this.AppConfig, fs_constants_1.FSConstants.App);
-            Object.assign(this.HttpConfig, fs_constants_1.FSConstants.Http);
         }
+        Object.defineProperty(FSApplication.prototype, "activeView", {
+            get: function () {
+                try {
+                    return mainView.activePage.name;
+                }
+                catch (e) {
+                    return '';
+                }
+            },
+            set: function (s) {
+            },
+            enumerable: true,
+            configurable: true
+        });
         FSApplication.prototype.loadPage = function (view, params) {
-            if (params === void 0) { params = {}; }
             mainView.loadPage(view);
         };
         FSApplication.prototype.showPopup = function (view, model) {
             fs_utils_1.FSUtils.loadView(view, function (h) {
-                framework7.popup(h.firstElementChild);
+                document.body.appendChild(h.firstElementChild);
             }, model);
         };
+        FSApplication.prototype.closePopup = function (dp) {
+            try {
+                Dom7("[data-page=\"" + dp + "\"]")[0].au.controller.viewModel.close();
+            }
+            catch (e) { }
+        };
         FSApplication.prototype.showMainView = function (view) {
+            framework7.params.swipePanel = framework7.params.rtl ? (fs_constants_1.FSConstants.menuPanel == "left" ? "right" : "left") : fs_constants_1.FSConstants.menuPanel;
+            mainView.history = mainView.history.splice(0, 1);
             mainView.loadPage(view);
             Dom7('.view-alternate').addClass('hidden');
             Dom7('.view-main.hidden').removeClass('hidden');
         };
         FSApplication.prototype.showLoginView = function (view) {
-            mainView.loadPage(view);
+            framework7.params.swipePanel = false;
+            loginView.history = loginView.history.splice(0, 1);
+            loginView.loadPage(view);
             Dom7('.view-main').addClass('hidden');
             Dom7('.view-alternate.hidden').removeClass('hidden');
         };
-        FSApplication.prototype.mainViewBack = function (url) {
-            mainView.back({ url: url, force: true, animatePages: true });
+        FSApplication.prototype.mainViewBack = function (url, animate) {
+            if (animate === void 0) { animate = true; }
+            mainView.back({ url: url, force: true, animatePages: animate });
+        };
+        FSApplication.prototype.removeSplash = function () {
+            Dom7(".fs-splash").remove();
         };
         FSApplication.prototype.switchDir = function (dir) {
             document.dir = dir;
             framework7.rtl = dir == "rtl";
-            framework7.swipePanel = framework7.rtl && fs_constants_1.FSConstants.menuPanel == "left" ? "right" : "left";
+            if (Framework7.prototype.device.ios) {
+                Dom7('link[rel*="stylesheet"][title="ios-rtl"]')[0].disabled = !framework7.rtl;
+            }
+            if (Framework7.prototype.device.android) {
+                Dom7('link[rel*="stylesheet"][title="android-rtl"]')[0].disabled = !framework7.rtl;
+            }
+            framework7.params.swipePanel = framework7.rtl ? (fs_constants_1.FSConstants.menuPanel == "left" ? "right" : "left") : fs_constants_1.FSConstants.menuPanel;
+            framework7.menuPanel = "panel-" + framework7.params.swipePanel;
             setTimeout(function () {
+                framework7.initSwipePanels();
                 if (mainView.activePage)
-                    framework7.initPage(mainView.activePage.view.container);
+                    framework7.reinitPage(mainView.activePage.view.container);
                 if (loginView.activePage)
-                    framework7.initPage(loginView.activePage.view.container);
+                    framework7.reinitPage(loginView.activePage.view.container);
             }, 100);
         };
         Object.defineProperty(FSApplication.prototype, "Username", {
@@ -108,13 +139,13 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./fs-util
             if (value === void 0) { value = '§'; }
             if (window.sessionStorage) {
                 if (value === '§') {
-                    return JSON.parse(window.sessionStorage.getItem(this.AppConfig.Key + ':' + key));
+                    return JSON.parse(window.sessionStorage.getItem(fs_constants_1.FSConstants.App.Key + ':' + key));
                 }
                 else if (value === null) {
-                    window.sessionStorage.removeItem(this.AppConfig.Key + ':' + key);
+                    window.sessionStorage.removeItem(fs_constants_1.FSConstants.App.Key + ':' + key);
                 }
                 else {
-                    window.sessionStorage.setItem(this.AppConfig.Key + ':' + key, JSON.stringify(value));
+                    window.sessionStorage.setItem(fs_constants_1.FSConstants.App.Key + ':' + key, JSON.stringify(value));
                 }
             }
             return null;
@@ -127,13 +158,13 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./fs-util
             if (value === void 0) { value = '§'; }
             if (window.localStorage) {
                 if (value === '§') {
-                    return JSON.parse(window.localStorage.getItem(this.AppConfig.Key + ':' + key));
+                    return JSON.parse(window.localStorage.getItem(fs_constants_1.FSConstants.App.Key + ':' + key));
                 }
                 else if (value === null) {
-                    window.localStorage.removeItem(this.AppConfig.Key + ':' + key);
+                    window.localStorage.removeItem(fs_constants_1.FSConstants.App.Key + ':' + key);
                 }
                 else {
-                    window.localStorage.setItem(this.AppConfig.Key + ':' + key, JSON.stringify(value));
+                    window.localStorage.setItem(fs_constants_1.FSConstants.App.Key + ':' + key, JSON.stringify(value));
                 }
             }
             return null;
@@ -171,6 +202,12 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./fs-util
         FSApplication.prototype.toastSuccess = function (config) {
         };
         FSApplication.prototype.toastError = function (config) {
+        };
+        FSApplication.prototype.showIndicator = function () {
+            framework7.showIndicator();
+        };
+        FSApplication.prototype.hideIndicator = function () {
+            framework7.hideIndicator();
         };
         FSApplication = __decorate([
             aurelia_framework_1.singleton(),

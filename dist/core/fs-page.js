@@ -25,11 +25,13 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         FSPage.prototype.attached = function () {
             var _this = this;
             sigma_ui_frameseven_1.FSEvent.queueTask(function () {
-                framework7.initPage(_this.element);
+                Dom7("[data-page=\"" + _this.dataPage + "\"] a.external").click(function (a) { if (a.target.dataset.url)
+                    window.open(a.target.dataset.url, '_system', 'location=yes'); });
                 if (_this.element.querySelector('fs-navbar'))
                     _this.element.classList.add('navbar-fixed');
                 if (_this.element.querySelector('fs-toolbar'))
                     _this.element.classList.add('toolbar-through');
+                setTimeout(function () { return framework7.initSmartSelects(_this.element); }, 500);
             });
         };
         __decorate([
@@ -44,6 +46,58 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         return FSPage;
     }());
     exports.FSPage = FSPage;
+    var FSPopup = (function () {
+        function FSPopup(element) {
+            var _this = this;
+            this.element = element;
+            this.dataPage = '';
+            this.constants = sigma_ui_frameseven_1.FSConstants;
+            this.framework7 = window.framework7;
+            Dom7(this.element).on('close', function () {
+                _this.element.au.controller.unbind();
+                _this.element.au.controller.detached();
+            });
+        }
+        FSPopup.prototype.unbind = function () {
+            sigma_ui_frameseven_1.FSEvent.fireEvent('unbind', this.element);
+        };
+        FSPopup.prototype.detached = function () {
+            sigma_ui_frameseven_1.FSEvent.fireEvent('detached', this.element);
+        };
+        FSPopup.prototype.attached = function () {
+            var _this = this;
+            sigma_ui_frameseven_1.FSEvent.queueTask(function () {
+                Dom7("[data-page=\"" + _this.dataPage + "\"] a.external").click(function (a) { if (a.target.dataset.url)
+                    window.open(a.target.dataset.url, '_system', 'location=yes'); });
+                if (_this.element.querySelector('fs-navbar'))
+                    _this.element.classList.add('navbar-fixed');
+                if (_this.element.querySelector('fs-toolbar'))
+                    _this.element.classList.add('toolbar-through');
+                framework7.popup(_this.element, true);
+                setTimeout(function () { return framework7.initSmartSelects(_this.element); }, 500);
+            });
+        };
+        FSPopup.prototype.close = function () {
+            var _this = this;
+            framework7.closeModal(this.element);
+            setTimeout(function () {
+                _this.unbind();
+                _this.detached();
+                _this.element.remove();
+            }, 500);
+        };
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSPopup.prototype, "dataPage", void 0);
+        FSPopup = __decorate([
+            aurelia_framework_1.customElement('fs-popup'),
+            aurelia_framework_1.inlineView('<template class="popup page view block"><slot></slot></template>'), 
+            __metadata('design:paramtypes', [Element])
+        ], FSPopup);
+        return FSPopup;
+    }());
+    exports.FSPopup = FSPopup;
     var FSNavBar = (function () {
         function FSNavBar() {
             this.navTitle = '';
@@ -78,7 +132,13 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                 this.iconClass = 'icon-close';
                 this.dataClass = 'close-popup';
             }
+            else if (element.hasAttribute('refresh')) {
+                this.iconClass = 'icon-refresh';
+            }
         }
+        FSNavTool.prototype.__fireClick = function () {
+            return sigma_ui_frameseven_1.FSEvent.fireEvent('click', this.element);
+        };
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
@@ -86,7 +146,7 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         FSNavTool = __decorate([
             aurelia_framework_1.containerless(),
             aurelia_framework_1.customElement('fs-tool'),
-            aurelia_framework_1.inlineView('<template><a href="#" data-panel="${menuPanel}" class="link icon-only ${dataClass}"><i class="icon ${iconClass}"></i></a></template>'), 
+            aurelia_framework_1.inlineView('<template><a href="#" click.trigger="__fireClick()" data-panel="${menuPanel}" class="link icon-only ${dataClass}"><slot><i class="icon ${iconClass}"></i></slot></a></template>'), 
             __metadata('design:paramtypes', [Element])
         ], FSNavTool);
         return FSNavTool;
@@ -108,10 +168,37 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         }
         FSToolbar = __decorate([
             aurelia_framework_1.customElement('fs-toolbar'),
-            aurelia_framework_1.inlineView('<template class="toolbar toolbar-bottom" show.bind="showToolbar" style="z-index:14;"><div class="toolbar-inner"><slot></slot></div></template>'), 
+            aurelia_framework_1.inlineView('<template class="toolbar toolbar-bottom"><div class="toolbar-inner"><slot></slot></div></template>'), 
             __metadata('design:paramtypes', [])
         ], FSToolbar);
         return FSToolbar;
     }());
     exports.FSToolbar = FSToolbar;
+    var FSRow = (function () {
+        function FSRow() {
+        }
+        FSRow = __decorate([
+            aurelia_framework_1.customElement('fs-row'),
+            aurelia_framework_1.inlineView('<template class="row"><slot></slot></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSRow);
+        return FSRow;
+    }());
+    exports.FSRow = FSRow;
+    var FSColumn = (function () {
+        function FSColumn(element) {
+            this.element = element;
+            if (this.element.hasAttribute('auto'))
+                this.element.classList.add('col-auto');
+            else
+                this.element.classList.add('col-fill');
+        }
+        FSColumn = __decorate([
+            aurelia_framework_1.customElement('fs-column'),
+            aurelia_framework_1.inlineView('<template class=""><slot></slot></template>'), 
+            __metadata('design:paramtypes', [Element])
+        ], FSColumn);
+        return FSColumn;
+    }());
+    exports.FSColumn = FSColumn;
 });

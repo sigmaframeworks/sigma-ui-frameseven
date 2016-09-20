@@ -13,9 +13,10 @@ import {FSConstants} from "./utils/fs-constants";
 import {kramed} from "./utils/fs-utils";
 import {FSApplication} from "./utils/fs-application";
 import {FSValidationRenderer} from "./utils/fs-validation";
+import {ValidationRules, RenderInstruction, ValidationError} from "aurelia-validation";
 
 export function configure(aurelia: FrameworkConfiguration, configCallback) {
-    // aurelia.container.registerHandler('ui-validator', container => container.get(UIValidationRenderer));
+    aurelia.container.registerHandler('fs-validator', container => container.get(FSValidationRenderer));
 
     ///** Core **/
     aurelia.globalResources('./core/fs-viewport');
@@ -32,6 +33,15 @@ export function configure(aurelia: FrameworkConfiguration, configCallback) {
 
     /** Utils **/
     aurelia.globalResources('./utils/fs-converters');
+
+    ValidationRules
+        .customRule('phone', (value, obj) => value === null || value === undefined || PhoneLib.isValid(value), '\${$displayName } is not a valid phone number.');
+    ValidationRules
+        .customRule('integer', (value, obj, min, max) => value === null || value === undefined || Number.isInteger(value) && value >= (min || Number.MIN_VALUE) && value <= (max || Number.MAX_VALUE),
+        '\${$displayName} must be an integer value between \${$config.min || "MIN_VALUE"} and \${$config.max || "MAX_VALUE"}.', (min, max) => ({ min, max }));
+    ValidationRules
+        .customRule('decimal', (value, obj, min, max) => value === null || value === undefined || Math.floor(value % 1) === 0 && value >= (min || Number.MIN_VALUE) && value <= (max || Number.MAX_VALUE),
+        '\${$displayName} must be a decimal value between \${$config.min || "MIN_VALUE"} and \${$config.max || "MAX_VALUE"}.', (min, max) => ({ min, max }));
 
     kramed.setOptions({
         renderer: new kramed.Renderer(),
@@ -87,6 +97,6 @@ export {FSApplication} from "./utils/fs-application";
 export {FSConstants} from "./utils/fs-constants";
 export {FSEvent} from "./utils/fs-event";
 export {FSFormat} from "./utils/fs-formatters";
-export {FSHttpService} from "./utils/fs-http-service";
+export {FSHttpClient} from "./utils/fs-http-service";
 export {FSUtils, _, moment, numeral, kramed} from "./utils/fs-utils";
 export {FSValidationRenderer} from "./utils/fs-validation";

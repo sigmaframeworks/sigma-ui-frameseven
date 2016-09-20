@@ -19,6 +19,11 @@
 }
 
 .list-block {
+    .no-margin {
+        margin-top   : 10px;
+        margin-bottom: 10px;
+    }
+
     .card {
         display: list-item;
     }
@@ -29,6 +34,13 @@
         .item-inner:after {
             display: block;
         }
+    }
+    
+    .item-media img {
+      &.rounded {
+        border-radius: 50%;
+      }
+      box-shadow: 0 0 1px 0 @gray;
     }
 
     .list-item:last-child .item-inner:after,
@@ -60,19 +72,27 @@
 
 .fs-phone-input {
     .item-input {
-        display    : flex;
-        flex-flow  : row nowrap;
-        align-items: center;
+        position: relative;
     }
 
     .ui-flag {
-        flex     : 0 0 auto;
-        min-width: 18px;
+        position  : absolute;
+        left      : 0;
+        top       : 50%;
+        margin-top: -5px;
+        min-width : 12px;
+        min-height: 10px;
     }
 
     input {
-        flex: 1 1 100%;
+        -webkit-margin-start: 14px !important;
+        margin-start        : 14px !important;
     }
+}
+
+.button.button-alternate {
+    background: @alternateColor;
+    color     : @alternateText;
 }
 
 .swiper-container {

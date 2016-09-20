@@ -26,9 +26,6 @@ export class FSViewport {
     class = "";
 
     @bindable()
-    splashLoaderColor = "orange";
-
-    @bindable()
     splashProgressColor = "multi";
 
 
@@ -51,16 +48,17 @@ export class FSViewport {
             }, 100);
         }
     }
+    f7;
     init() {
         let isRtl = document.dir == "rtl";
-        window.framework7 = new Framework7({
+        this.f7 = window.framework7 = new Framework7({
             rtl: isRtl,
             router: true,
             swipeout: false,
             sortable: false,
             swipePanel: isRtl ? (this.swipePanel == "left" ? "right" : "left") : this.swipePanel,
             notificationHold: 2500,
-            imagesLazyLoadThreshold: 360,
+            imagesLazyLoadThreshold: 150,
             notificationCloseOnClick: true,
             materialPageLoadDelay: 100,
             material: Framework7.prototype.device.android,
@@ -71,6 +69,7 @@ export class FSViewport {
                 page.container.au.controller.detached();
             }
         });
+        framework7.menuPanel = "panel-" + (framework7.rtl ? (FSConstants.menuPanel == "left" ? "right" : "left") : FSConstants.menuPanel);
         if (this.showSplashProgress) framework7.showProgressbar('.fs-splash', this.splashProgressColor);
 
         if (Framework7.prototype.device.android) {
@@ -86,17 +85,16 @@ export class FSViewport {
 
         window.mainView = framework7.addView('.view-main', {
             // Because we want to use dynamic navbar, we need to enable it for this view:
-            dynamicNavbar: false
+            dynamicNavbar: false,
+            uniqueHistory: true
         });
 
         window.loginView = framework7.addView('.view-alternate', {
             // Because we want to use dynamic navbar, we need to enable it for this view:
-            dynamicNavbar: false
+            dynamicNavbar: false,
+            uniqueHistory: true
         });
         FSEvent.fireEvent('appready', this.element);
-        setTimeout(() => {
-            Dom7(".fs-splash").remove();
-        }, 1000);
     }
 
 }

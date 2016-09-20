@@ -9,6 +9,6 @@ export { FSApplication } from "./utils/fs-application";
 export { FSConstants } from "./utils/fs-constants";
 export { FSEvent } from "./utils/fs-event";
 export { FSFormat } from "./utils/fs-formatters";
-export { FSHttpService } from "./utils/fs-http-service";
+export { FSHttpClient } from "./utils/fs-http-service";
 export { FSUtils, _, moment, numeral, kramed } from "./utils/fs-utils";
 export { FSValidationRenderer } from "./utils/fs-validation";

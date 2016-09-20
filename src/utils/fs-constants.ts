@@ -6,17 +6,17 @@
 
 export module FSConstants {
 
-	export var App = {
-		Key: 'App',
-		Title: 'Sigma UI FrameSeven',
-		Version: '1.00'
-	}
+    export var App = {
+        Key: 'App',
+        Title: 'Sigma UI FrameSeven',
+        Version: '1.00'
+    }
 
-	export var Http = {
-		BaseUrl: './',
-		Headers: {},
-		AuthorizationHeader: false
-	}
+    export var Http = {
+        BaseUrl: './',
+        Headers: {},
+        AuthorizationHeader: false
+    }
 
-	export var menuPanel = 'left';
+    export var menuPanel = 'left';
 }

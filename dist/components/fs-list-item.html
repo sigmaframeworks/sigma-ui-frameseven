@@ -3,11 +3,17 @@
 // @copyright   : 2016 Sigma Frameworks
 // @license     : MIT
 -->
-<template class="list-item">
-  <div class="item-content">
-    <slot name="media"><div class="item-media" if.bind="icon"><i class="icon ${icon}"></i></div></slot>
-    <div class="item-inner">
-      <slot></slot>
+<template>
+<li class="list-item ${class}">
+    <div class="item-content">
+        <slot name="media">
+            <div class="item-media" if.bind="icon">
+                <i class="icon ${icon}"></i>
+            </div>
+        </slot>
+        <div class="item-inner">
+            <slot></slot>
+        </div>
     </div>
-  </div>
+</li>
 </template>

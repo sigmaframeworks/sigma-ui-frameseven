@@ -4,45 +4,156 @@
 // @copyright   : 2016 Sigma Frameworks
 // @license     : MIT
 
-@import "_device-vars.less";
+// @import "_device-vars.less";
 @import "framework7.ios.less";
 @import "framework7.ios.colors.less";
-
-html[dir="rtl"] {
-  @import "framework7.ios.rtl.less";
-}
 @import "_device-extras.less";
 @import "_common.less";
 
-.app-container {
-  .pages {
-    background: none;
-  }
+body {
+    &.layout-dark {
+        .smart-select-picker .page {
+            background: #000;
+        }
+    }
 
-  .panel {
-    background: @white;
-  }
+    .pages {
+        background: none;
+    }
 
-  .navbar {
-    background: @navBarBg;
-    color     : @navBarColor;
-  }
+    .panel {
+        background: #fefefe;
+    }
 
-  .panel-overlay {
-    background: rgba(0, 0, 0, 0.2);
-    opacity   : 1;
-  }
+    .navbar {
+        background: @navBarBg;
+        color     : @navBarColor;
 
-  .panel-left,
-  .panel-right {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  }
+        a {
+            color: @navBarColor;
+        }
+    }
 
-  .list-group-title {
-    font-size: .8em;
-  }
-  
-  .label-switch input[type="checkbox"]:checked + .checkbox {
-    background: @themeColor;
-  }
+    .menu .list-item.active {
+        -webkit-border-start: 5px solid @themeColor;
+    }
+
+    .panel-overlay {
+        background: rgba(0, 0, 0, 0.2);
+        opacity   : 1;
+    }
+
+    .panel-left,
+    .panel-right {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .list-group-title {
+        font-size: .8em;
+    }
+
+    .fs-input-group {
+        &.fs-invalid {
+            .item-input {
+                position: relative;
+
+                &:after {
+                    content      : '';
+                    position     : absolute;
+                    bottom       : 0;
+                    right        : 0;
+                    left         : 0;
+                    border-bottom: .5px solid @themeDanger;
+                }
+
+                &:before {
+                    content     : '';
+                    position    : absolute;
+                    bottom      : 0;
+                    right       : 0;
+                    border      : 5px solid @themeDanger;
+                    border-color: transparent @themeDanger @themeDanger transparent;
+                }
+            }
+        }
+
+        &.fs-valid {
+            .item-input {
+                position: relative;
+
+                &:after {
+                    content      : '';
+                    position     : absolute;
+                    bottom       : 0;
+                    right        : 0;
+                    left         : 0;
+                    border-bottom: .5px solid @themeSuccess;
+                }
+
+                &:before {
+                    content     : '';
+                    position    : absolute;
+                    bottom      : 0;
+                    right       : 0;
+                    border      : 5px solid @themeSuccess;
+                    border-color: transparent @themeSuccess @themeSuccess transparent;
+                }
+            }
+        }
+    }
 }
+
+.theme-override(@theme, @color) {
+    .theme-@{theme} {
+        .navbar {
+            background: @color !important;
+            color     : @white !important;
+
+            a {
+                color: @white !important;
+            }
+        }
+
+        .label-switch input[type="checkbox"]:checked + .checkbox {
+            background: @color;
+        }
+
+        .menu-list .list-item.active {
+            border-color: @color;
+        }
+    }
+}
+.theme-mixin(e(  'default'), @themeColor, color(@themeColor));
+.theme-mixin(e(  'alternate'), @alternateColor, color(@alternateColor));
+.theme-mixin(e(  'purple'), @purple, #7B1FA2);
+.theme-mixin(e(  'deeppurple'), @deeppurple, #512DA8);
+.theme-mixin(e(  'indigo'), @indigo, #303F9F);
+.theme-mixin(e(  'cyan'), @cyan, #0097A7);
+.theme-mixin(e(  'teal'), @teal, #00897B);
+.theme-mixin(e(  'lightgreen'), @lightgreen, #689F38);
+.theme-mixin(e(  'lime'), @lime, #AFB42B);
+.theme-mixin(e(  'amber'), @amber, #FFA000);
+.theme-mixin(e(  'deeporange'), @deeporange, #E64A19);
+.theme-mixin(e(  'brown'), @brown, #5D4037);
+.theme-mixin(e(  'bluegray'), @bluegray, #455A64);
+.theme-override(e(  'default'), @themeColor);
+.theme-override(e(  'red'), @red);
+.theme-override(e(  'pink'), @pink);
+.theme-override(e(  'purple'), @purple);
+.theme-override(e(  'deeppurple'), @deeppurple);
+.theme-override(e(  'indigo'), @indigo);
+.theme-override(e(  'blue'), @blue);
+.theme-override(e(  'lightblue'), @lightblue);
+.theme-override(e(  'cyan'), @cyan);
+.theme-override(e(  'teal'), @teal);
+.theme-override(e(  'green'), @green);
+.theme-override(e(  'lightgreen'), @lightgreen);
+.theme-override(e(  'lime'), @lime);
+.theme-override(e(  'yellow'), @yellow);
+.theme-override(e(  'amber'), @amber);
+.theme-override(e(  'orange'), @orange);
+.theme-override(e(  'deeporange'), @deeporange);
+.theme-override(e(  'brown'), @brown);
+.theme-override(e(  'bluegray'), @bluegray);
+.theme-override(e(  'gray'), @gray);
+.theme-override(e(  'black'), @black);

@@ -7,6 +7,9 @@ export declare class CodeHighlightValueConverter {
 export declare class DateValueConverter {
     toView(value: string, format?: string): any;
 }
+export declare class DateFullValueConverter {
+    toView(value: string, format?: string): any;
+}
 export declare class FromNowValueConverter {
     toView(value: string): string;
 }
@@ -32,6 +35,9 @@ export declare class JsonValueConverter {
     toView(value: any): string;
 }
 export declare class IsStringValueConverter {
+    toView(value: any): boolean;
+}
+export declare class IsEmptyValueConverter {
     toView(value: any): boolean;
 }
 export declare class IsArrayValueConverter {

@@ -8,9 +8,10 @@ import {autoinject, transient} from "aurelia-framework";
 import {HttpClient, json} from "aurelia-fetch-client";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {FSApplication} from "./fs-application";
+import {FSConstants} from "././fs-constants";
 
 @autoinject()
-export class FSHttpService {
+export class FSHttpClient {
 
     constructor(public httpClient: HttpClient,
         public appState: FSApplication,
@@ -21,7 +22,7 @@ export class FSHttpService {
         httpClient.configure(
             config => {
                 config
-                    .withBaseUrl(appState.HttpConfig.BaseUrl)
+                    .withBaseUrl(FSConstants.Http.BaseUrl)
                     //.withDefaults({})
                     .withInterceptor({
                         request(request) {
@@ -100,7 +101,7 @@ export class FSHttpService {
             .then(resp => resp.text());
     }
 
-    put(slug: string, obj): Promise<any | string | void> {
+    put(slug: string, obj, useBasic: boolean = false): Promise<any | string | void> {
         this.appState.info(this.constructor.name, `put [${slug}]`);
         return this.httpClient
             .fetch(slug,
@@ -108,12 +109,12 @@ export class FSHttpService {
                 method: 'put',
                 body: json(obj),
                 mode: 'cors',
-                headers: this.__getHeaders()
+                headers: this.__getHeaders(useBasic)
             })
             .then(resp => resp.json());
     }
 
-    post(slug: string, obj): Promise<any | string | void> {
+    post(slug: string, obj, useBasic: boolean = false): Promise<any | string | void> {
         this.appState.info(this.constructor.name, `post [${slug}]`);
         return this.httpClient
             .fetch(slug,
@@ -121,7 +122,7 @@ export class FSHttpService {
                 method: 'post',
                 body: json(obj),
                 mode: 'cors',
-                headers: this.__getHeaders()
+                headers: this.__getHeaders(useBasic)
             })
             .then(resp => resp.json());
     }
@@ -145,9 +146,9 @@ export class FSHttpService {
             //'Content-Type'               : 'application/json',
             'Access-Control-Allow-Origin': '*',
         };
-        Object.assign(headers, this.appState.HttpConfig.Headers || {});
+        Object.assign(headers, FSConstants.Http.Headers || {});
 
-        if (this.appState.HttpConfig.AuthorizationHeader && !isEmpty(this.appState.AuthUser) && !useBasic) {
+        if (FSConstants.Http.AuthorizationHeader && !isEmpty(this.appState.AuthToken) && !useBasic) {
             var token = this.appState.AuthUser + ":" + this.appState.AuthToken;
             var hash = btoa(token);
             headers['Authorization'] = "Basic " + hash;

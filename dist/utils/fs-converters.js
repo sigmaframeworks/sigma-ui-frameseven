@@ -4,7 +4,10 @@ define(["require", "exports", "./fs-formatters", "./fs-utils"], function (requir
         function MarkdownValueConverter() {
         }
         MarkdownValueConverter.prototype.toView = function (value) {
-            return fs_formatters_1.FSFormat.toHTML(value || '');
+            var ret = fs_formatters_1.FSFormat.toHTML(value || '');
+            ret = ret.replace(/href\=\"tel\:(\+\d*)\"/g, 'onclick="confirmCall(\'$1\')"');
+            ret = ret.replace(/a href=/g, 'a class="external" href="#" data-url=');
+            return ret;
         };
         return MarkdownValueConverter;
     }());
@@ -22,11 +25,22 @@ define(["require", "exports", "./fs-formatters", "./fs-utils"], function (requir
         function DateValueConverter() {
         }
         DateValueConverter.prototype.toView = function (value, format) {
+            if (format === void 0) { format = 'DD MMM YYYY'; }
             return fs_formatters_1.FSFormat.date(value, format);
         };
         return DateValueConverter;
     }());
     exports.DateValueConverter = DateValueConverter;
+    var DateFullValueConverter = (function () {
+        function DateFullValueConverter() {
+        }
+        DateFullValueConverter.prototype.toView = function (value, format) {
+            if (format === void 0) { format = 'DD MMM YYYY hh:mm A'; }
+            return fs_formatters_1.FSFormat.date(value, format);
+        };
+        return DateFullValueConverter;
+    }());
+    exports.DateFullValueConverter = DateFullValueConverter;
     var FromNowValueConverter = (function () {
         function FromNowValueConverter() {
         }
@@ -110,6 +124,15 @@ define(["require", "exports", "./fs-formatters", "./fs-utils"], function (requir
         return IsStringValueConverter;
     }());
     exports.IsStringValueConverter = IsStringValueConverter;
+    var IsEmptyValueConverter = (function () {
+        function IsEmptyValueConverter() {
+        }
+        IsEmptyValueConverter.prototype.toView = function (value) {
+            return fs_utils_1._.isEmpty(value);
+        };
+        return IsEmptyValueConverter;
+    }());
+    exports.IsEmptyValueConverter = IsEmptyValueConverter;
     var IsArrayValueConverter = (function () {
         function IsArrayValueConverter() {
         }

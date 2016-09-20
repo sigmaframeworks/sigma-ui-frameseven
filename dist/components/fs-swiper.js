@@ -18,12 +18,16 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         }
         FSSwiper.prototype.attached = function () {
             this.__swiperObject = framework7.swiper(this.__container, {
-                spaceBetween: 50,
+                spaceBetween: 20,
                 autoplay: 5000,
                 autoplayDisableOnInteraction: false,
                 loop: true,
                 lazyLoading: true,
                 preloadImages: false,
+                effect: 'slide',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 1,
                 pagination: this.showPaginaton ? this.__pager : '',
                 nextButton: this.showControls ? this.__next : '',
                 prevButton: this.showControls ? this.__prev : ''

@@ -15,7 +15,6 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             this.container = container;
             this.showSplashProgress = false;
             this.class = "";
-            this.splashLoaderColor = "orange";
             this.splashProgressColor = "multi";
             sigma_ui_frameseven_1.FSUtils.container(container);
             if (element.hasAttribute('splash-progress'))
@@ -38,14 +37,14 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         };
         FSViewport.prototype.init = function () {
             var isRtl = document.dir == "rtl";
-            window.framework7 = new Framework7({
+            this.f7 = window.framework7 = new Framework7({
                 rtl: isRtl,
                 router: true,
                 swipeout: false,
                 sortable: false,
                 swipePanel: isRtl ? (this.swipePanel == "left" ? "right" : "left") : this.swipePanel,
                 notificationHold: 2500,
-                imagesLazyLoadThreshold: 360,
+                imagesLazyLoadThreshold: 150,
                 notificationCloseOnClick: true,
                 materialPageLoadDelay: 100,
                 material: Framework7.prototype.device.android,
@@ -56,6 +55,7 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                     page.container.au.controller.detached();
                 }
             });
+            framework7.menuPanel = "panel-" + (framework7.rtl ? (sigma_ui_frameseven_1.FSConstants.menuPanel == "left" ? "right" : "left") : sigma_ui_frameseven_1.FSConstants.menuPanel);
             if (this.showSplashProgress)
                 framework7.showProgressbar('.fs-splash', this.splashProgressColor);
             if (Framework7.prototype.device.android) {
@@ -67,24 +67,19 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                 cordova.plugins.Keyboard.disableScroll(false);
             }
             window.mainView = framework7.addView('.view-main', {
-                dynamicNavbar: false
+                dynamicNavbar: false,
+                uniqueHistory: true
             });
             window.loginView = framework7.addView('.view-alternate', {
-                dynamicNavbar: false
+                dynamicNavbar: false,
+                uniqueHistory: true
             });
             sigma_ui_frameseven_1.FSEvent.fireEvent('appready', this.element);
-            setTimeout(function () {
-                Dom7(".fs-splash").remove();
-            }, 1000);
         };
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
         ], FSViewport.prototype, "class", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], FSViewport.prototype, "splashLoaderColor", void 0);
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)

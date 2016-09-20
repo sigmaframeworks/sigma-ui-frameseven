@@ -28,10 +28,54 @@ export class FSPage {
 
     attached() {
         FSEvent.queueTask(() => {
-            framework7.initPage(this.element);
+            Dom7(`[data-page="${this.dataPage}"] a.external`).click(a => { if (a.target.dataset.url) window.open(a.target.dataset.url, '_system', 'location=yes'); });
             if (this.element.querySelector('fs-navbar')) this.element.classList.add('navbar-fixed');
             if (this.element.querySelector('fs-toolbar')) this.element.classList.add('toolbar-through');
+            setTimeout(() => framework7.initSmartSelects(this.element), 500);
         });
+    }
+}
+
+@customElement('fs-popup')
+@inlineView('<template class="popup page view block"><slot></slot></template>')
+export class FSPopup {
+    @bindable()
+    dataPage = '';
+
+    constants = FSConstants;
+    framework7 = window.framework7;
+
+    constructor(public element: Element) {
+        Dom7(this.element).on('close', () => {
+            this.element.au.controller.unbind();
+            this.element.au.controller.detached();
+        });
+    }
+
+    unbind() {
+        FSEvent.fireEvent('unbind', this.element);
+    }
+    detached() {
+        FSEvent.fireEvent('detached', this.element);
+    }
+
+    attached() {
+        FSEvent.queueTask(() => {
+            Dom7(`[data-page="${this.dataPage}"] a.external`).click(a => { if (a.target.dataset.url) window.open(a.target.dataset.url, '_system', 'location=yes'); });
+            if (this.element.querySelector('fs-navbar')) this.element.classList.add('navbar-fixed');
+            if (this.element.querySelector('fs-toolbar')) this.element.classList.add('toolbar-through');
+            framework7.popup(this.element, true);
+            setTimeout(() => framework7.initSmartSelects(this.element), 500);
+        });
+    }
+
+    close() {
+        framework7.closeModal(this.element);
+        setTimeout(() => {
+            this.unbind();
+            this.detached();
+            this.element.remove();
+        }, 500);
     }
 }
 
@@ -44,7 +88,7 @@ export class FSNavBar {
 
 @containerless()
 @customElement('fs-tool')
-@inlineView('<template><a href="#" data-panel="${menuPanel}" class="link icon-only ${dataClass}"><i class="icon ${iconClass}"></i></a></template>')
+@inlineView('<template><a href="#" click.trigger="__fireClick()" data-panel="${menuPanel}" class="link icon-only ${dataClass}"><slot><i class="icon ${iconClass}"></i></slot></a></template>')
 export class FSNavTool {
     iconClass = '';
     dataClass = '';
@@ -65,6 +109,13 @@ export class FSNavTool {
             this.iconClass = 'icon-close';
             this.dataClass = 'close-popup';
         }
+        else if (element.hasAttribute('refresh')) {
+            this.iconClass = 'icon-refresh';
+        }
+    }
+
+    __fireClick() {
+        return FSEvent.fireEvent('click', this.element);
     }
 }
 
@@ -73,7 +124,7 @@ export class FSNavTool {
 export class FSPageContent { }
 
 @customElement('fs-toolbar')
-@inlineView('<template class="toolbar toolbar-bottom" show.bind="showToolbar" style="z-index:14;"><div class="toolbar-inner"><slot></slot></div></template>')
+@inlineView('<template class="toolbar toolbar-bottom"><div class="toolbar-inner"><slot></slot></div></template>')
 export class FSToolbar { }
 
 @customElement('fs-row')
@@ -81,5 +132,10 @@ export class FSToolbar { }
 export class FSRow { }
 
 @customElement('fs-column')
-@inlineView('<template class="col-fill"><slot></slot></template>')
-export class FSColumn { }
+@inlineView('<template class=""><slot></slot></template>')
+export class FSColumn {
+    constructor(public element: Element) {
+        if (this.element.hasAttribute('auto')) this.element.classList.add('col-auto');
+        else this.element.classList.add('col-fill');
+    }
+}

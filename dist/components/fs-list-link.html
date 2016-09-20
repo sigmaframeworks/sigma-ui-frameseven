@@ -3,11 +3,20 @@
 // @copyright   : 2016 Sigma Frameworks
 // @license     : MIT
 -->
-<template class="list-item">
-  <a href.bind="href" class="item-link item-content ${class}" ref="__link">
-    <slot name="media"><div class="item-media" if.bind="icon"><i class="icon ${icon}"></i></div></slot>
-    <div class="item-inner">
-      <slot></slot>
-    </div>
-  </a>
+<template>
+<li class="list-item ${class}">
+    <a href.bind="href" class="item-link" ref="__link" click.trigger="__fireClick()" data-open-in.bind="openIn" data-back-on-select="true">
+        <slot name="select"></slot>
+        <div class="item-content">
+            <slot name="media">
+                <div class="item-media" if.bind="icon">
+                    <i class="icon ${icon}"></i>
+                </div>
+            </slot>
+            <div class="item-inner">
+                <slot></slot>
+            </div>
+        </div>
+    </a>
+</li>
 </template>

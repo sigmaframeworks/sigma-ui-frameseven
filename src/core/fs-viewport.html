@@ -9,28 +9,28 @@
   <!-- Panels overlay-->
   <div class="panel-overlay"></div>
   <!-- Left panel with reveal effect-->
-  <div class="panel panel-left panel-cover ${class}">
+  <div class="panel ${f7.menuPanel} panel-cover ${class}">
     <div class="view panel-view close-panel">
       <slot></slot>
     </div>
   </div>
   <!-- Right panel with reveal effect-->
-  <div class="panel panel-right panel-cover ${class}">
+  <!-- <div class="panel panel-right panel-cover ${class}">
     <div class="view panel-view close-panel">
       <slot></slot>
     </div>
-  </div>
+  </div> -->
   <!-- Views -->
   <div class="views ${class}">
     <!-- Your main view, should have "view-main" class -->
     <div class="view view-main hidden">
       <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
-      <div class="pages navbar-fixed"></div>
+      <div class="pages"></div>
     </div>
     <!-- Your main view, should have "view-main" class -->
     <div class="view view-alternate hidden">
       <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
-      <div class="pages navbar-fixed"></div>
+      <div class="pages"></div>
     </div>
   </div>
 </template>

@@ -32,8 +32,8 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             var formGroup = getParentByClass(element, 'fs-input-group');
             if (!formGroup)
                 return;
-            formGroup.classList.add('ui-invalid');
-            formGroup.classList.remove('ui-valid');
+            formGroup.classList.add('fs-invalid');
+            formGroup.classList.remove('fs-valid');
             var errs = (formGroup.errors = formGroup.errors || []);
             errs.push(error);
         };
@@ -51,8 +51,8 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
                 }
             }
             if (errs.length == 0) {
-                formGroup.classList.remove('ui-invalid');
-                formGroup.classList.add('ui-valid');
+                formGroup.classList.remove('fs-invalid');
+                formGroup.classList.add('fs-valid');
             }
         };
         FSValidationRenderer = __decorate([

@@ -4,23 +4,115 @@
 // @copyright   : 2016 Sigma Frameworks
 // @license     : MIT
 
-@import "_device-vars.less";
+// @import "_device-vars.less";
 @import "framework7.material.less";
 @import "framework7.material.colors.less";
-
-html[dir="rtl"] {
-  @import "framework7.material.rtl.less";
-}
 @import "_device-extras.less";
 @import "_common.less";
 
-.app-container {
-  .pages {
-    background: none;
-  }
+body {
+    &.layout-dark {
+        .notifications.list-block > ul {
+            background: #323232;
+        }
+    }
 
-  .navbar {
-    background: @navBarBg;
-    color     : @navBarColor;
-  }
+    .pages {
+        background: none;
+    }
+
+    .list-block .item-divider {
+        height: 12px;
+    }
+
+    .menu-list .list-item {
+        -webkit-border-start: 5px solid transparent;
+    }
+
+    .navbar {
+        background: @navBarBg;
+        color     : @navBarColor;
+
+        a {
+            color: @navBarColor;
+        }
+    }
+
+    .menu .list-item.active {
+        -webkit-border-start: 5px solid @themeColor;
+    }
+
+    .fs-input-group {
+        .label-switch {
+            padding: 9px 0 9px 18px;
+        }
+
+        &.fs-invalid {
+            .item-input {
+                position: relative;
+
+                &:after {
+                    background: @themeDanger;
+                }
+
+                &:before {
+                    content     : '';
+                    position    : absolute;
+                    bottom      : 0;
+                    right       : 0;
+                    border      : 5px solid @themeDanger;
+                    border-color: transparent @themeDanger @themeDanger transparent;
+                }
+            }
+        }
+
+        &.fs-valid {
+            .item-input {
+                position: relative;
+
+                &:after {
+                    background: @themeSuccess;
+                }
+
+                &:before {
+                    content     : '';
+                    position    : absolute;
+                    bottom      : 0;
+                    right       : 0;
+                    border      : 5px solid @themeSuccess;
+                    border-color: transparent @themeSuccess @themeSuccess transparent;
+                }
+            }
+        }
+    }
 }
+
+.theme-override(@theme, @color) {
+    .theme-@{theme} {
+        .menu-list .list-item.active {
+            border-color: @color;
+        }
+    }
+}
+.theme-mixin(e(  'default'), @themeColor, color(@themeColor));
+.theme-mixin(e(  'alternate'), @alternateColor, color(@alternateColor));
+.theme-override(e( 'default'), @themeColor);
+.theme-override(e( 'alternate'), @alternateColor);
+.theme-override(e(  'red'), @red);
+.theme-override(e(  'pink'), @pink);
+.theme-override(e(  'purple'), @purple);
+.theme-override(e(  'deeppurple'), @deeppurple);
+.theme-override(e(  'indigo'), @indigo);
+.theme-override(e(  'blue'), @blue);
+.theme-override(e(  'lightblue'), @lightblue);
+.theme-override(e(  'cyan'), @cyan);
+.theme-override(e(  'teal'), @teal);
+.theme-override(e(  'green'), @green);
+.theme-override(e(  'lightgreen'), @lightgreen);
+.theme-override(e(  'lime'), @lime);
+.theme-override(e(  'yellow'), @yellow);
+.theme-override(e(  'amber'), @amber);
+.theme-override(e(  'orange'), @orange);
+.theme-override(e(  'deeporange'), @deeporange);
+.theme-override(e(  'brown'), @brown);
+.theme-override(e(  'bluegray'), @bluegray);

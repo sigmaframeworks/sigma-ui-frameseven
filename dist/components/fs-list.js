@@ -7,15 +7,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define(["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
+define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], function (require, exports, aurelia_framework_1, sigma_ui_frameseven_1) {
     "use strict";
     var FSList = (function () {
-        function FSList() {
+        function FSList(element) {
+            this.element = element;
+            if (this.element.hasAttribute('media-list'))
+                this.element.classList.add('media-list');
+            this.__searchable = this.element.hasAttribute('searchable');
         }
         FSList = __decorate([
             aurelia_framework_1.customElement('fs-list'),
-            aurelia_framework_1.inlineView('<template class="list-block block"><slot></slot></template>'), 
-            __metadata('design:paramtypes', [])
+            aurelia_framework_1.inlineView('<template class="list-block block ${__searchable?\'list-block-search searchbar-found\':\'\'}"><slot></slot></template>'), 
+            __metadata('design:paramtypes', [Element])
         ], FSList);
         return FSList;
     }());
@@ -32,6 +36,18 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         return FSListBlock;
     }());
     exports.FSListBlock = FSListBlock;
+    var FSListCard = (function () {
+        function FSListCard() {
+        }
+        FSListCard = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-list-card'),
+            aurelia_framework_1.inlineView('<template><li class="card"><slot></slot></li></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSListCard);
+        return FSListCard;
+    }());
+    exports.FSListCard = FSListCard;
     var FSListGroup = (function () {
         function FSListGroup() {
             this.label = '';
@@ -41,8 +57,9 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
             __metadata('design:type', String)
         ], FSListGroup.prototype, "label", void 0);
         FSListGroup = __decorate([
+            aurelia_framework_1.containerless(),
             aurelia_framework_1.customElement('fs-list-group'),
-            aurelia_framework_1.inlineView('<template class="list-group block"><ul><li class="list-group-title" if.bind="label">${label}</li><slot></slot></ul></template>'), 
+            aurelia_framework_1.inlineView('<template><div class="list-group"><ul><li class="list-group-title" if.bind="label">${label}</li><slot></slot></ul></div></template>'), 
             __metadata('design:paramtypes', [])
         ], FSListGroup);
         return FSListGroup;
@@ -104,18 +121,60 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         return FSListAfter;
     }());
     exports.FSListAfter = FSListAfter;
-    var FSListItem = (function () {
-        function FSListItem() {
-            this.icon = '';
+    var FSListRow = (function () {
+        function FSListRow() {
         }
+        FSListRow = __decorate([
+            aurelia_framework_1.customElement('fs-item-row'),
+            aurelia_framework_1.inlineView('<template class="item-title-row col-fill"><slot></slot></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSListRow);
+        return FSListRow;
+    }());
+    exports.FSListRow = FSListRow;
+    var FSListSubtitle = (function () {
+        function FSListSubtitle() {
+        }
+        FSListSubtitle = __decorate([
+            aurelia_framework_1.customElement('fs-item-subtitle'),
+            aurelia_framework_1.inlineView('<template class="item-subtitle block"><slot></slot></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSListSubtitle);
+        return FSListSubtitle;
+    }());
+    exports.FSListSubtitle = FSListSubtitle;
+    var FSListText = (function () {
+        function FSListText() {
+        }
+        FSListText = __decorate([
+            aurelia_framework_1.customElement('fs-item-text'),
+            aurelia_framework_1.inlineView('<template class="item-text block"><slot></slot></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSListText);
+        return FSListText;
+    }());
+    exports.FSListText = FSListText;
+    var FSListItem = (function () {
+        function FSListItem(element) {
+            this.element = element;
+            this.class = '';
+            this.icon = '';
+            if (this.element.hasAttribute('card'))
+                this.class += ' card';
+        }
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSListItem.prototype, "class", void 0);
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', String)
         ], FSListItem.prototype, "icon", void 0);
         FSListItem = __decorate([
+            aurelia_framework_1.containerless(),
             aurelia_framework_1.customElement('fs-list-item'),
             aurelia_framework_1.useView('./fs-list-item.html'), 
-            __metadata('design:paramtypes', [])
+            __metadata('design:paramtypes', [Element])
         ], FSListItem);
         return FSListItem;
     }());
@@ -123,14 +182,26 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
     var FSListLink = (function () {
         function FSListLink(element) {
             this.element = element;
+            this.class = '';
             this.icon = '';
             this.href = '#';
-            this.class = '';
+            this.openIn = 'picker';
+            if (this.element.hasAttribute('card'))
+                this.class += ' card';
         }
         FSListLink.prototype.bind = function () {
+            if (this.element.hasAttribute('smart-select'))
+                this.__link.classList.add('smart-select');
             if (this.element.hasAttribute('external'))
                 this.__link.classList.add('external');
         };
+        FSListLink.prototype.__fireClick = function () {
+            return sigma_ui_frameseven_1.FSEvent.fireEvent('click', this.element);
+        };
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSListLink.prototype, "class", void 0);
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', String)
@@ -142,8 +213,9 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', String)
-        ], FSListLink.prototype, "class", void 0);
+        ], FSListLink.prototype, "openIn", void 0);
         FSListLink = __decorate([
+            aurelia_framework_1.containerless(),
             aurelia_framework_1.customElement('fs-list-link'),
             aurelia_framework_1.useView('./fs-list-link.html'), 
             __metadata('design:paramtypes', [Element])
@@ -151,4 +223,60 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         return FSListLink;
     }());
     exports.FSListLink = FSListLink;
+    var FSSearchbar = (function () {
+        function FSSearchbar() {
+            this.placeholder = 'Search...';
+            this.buttonCancel = 'Cancel';
+            this.searchList = '';
+        }
+        FSSearchbar.prototype.attached = function () {
+            this.searchBar = framework7.searchbar(this.__form, {
+                searchList: '.list-block-search' + this.searchList,
+                searchIn: '.item-title,.item-subtitle,.item-text',
+                onClear: this.onclear,
+                onEnable: this.onenable,
+                onDisable: this.ondisable,
+                customSearch: isFunction(this.onsearch) ? this.onsearch : false
+            });
+        };
+        FSSearchbar.prototype.unbind = function () {
+            this.searchBar.destroy();
+        };
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSSearchbar.prototype, "onsearch", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSSearchbar.prototype, "onenable", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSSearchbar.prototype, "ondisable", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSSearchbar.prototype, "onclear", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSSearchbar.prototype, "placeholder", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSSearchbar.prototype, "buttonCancel", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSSearchbar.prototype, "searchList", void 0);
+        FSSearchbar = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-searchbar'),
+            aurelia_framework_1.useView('./fs-searchbar.html'), 
+            __metadata('design:paramtypes', [])
+        ], FSSearchbar);
+        return FSSearchbar;
+    }());
+    exports.FSSearchbar = FSSearchbar;
 });

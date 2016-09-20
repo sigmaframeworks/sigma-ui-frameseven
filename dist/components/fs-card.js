@@ -36,7 +36,7 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         }
         FSCardHeader = __decorate([
             aurelia_framework_1.customElement('fs-card-header'),
-            aurelia_framework_1.inlineView('<template class="card-header block"><slot></slot></template>'), 
+            aurelia_framework_1.inlineView('<template class="card-header"><slot></slot></template>'), 
             __metadata('design:paramtypes', [])
         ], FSCardHeader);
         return FSCardHeader;
@@ -47,7 +47,7 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         }
         FSCardFooter = __decorate([
             aurelia_framework_1.customElement('fs-card-footer'),
-            aurelia_framework_1.inlineView('<template class="card-footer block"><slot></slot></template>'), 
+            aurelia_framework_1.inlineView('<template class="card-footer"><slot></slot></template>'), 
             __metadata('design:paramtypes', [])
         ], FSCardFooter);
         return FSCardFooter;

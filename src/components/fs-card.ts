@@ -16,9 +16,9 @@ export class FSCard {
 export class FSCardContent { }
 
 @customElement('fs-card-header')
-@inlineView('<template class="card-header block"><slot></slot></template>')
+@inlineView('<template class="card-header"><slot></slot></template>')
 export class FSCardHeader { }
 
 @customElement('fs-card-footer')
-@inlineView('<template class="card-footer block"><slot></slot></template>')
+@inlineView('<template class="card-footer"><slot></slot></template>')
 export class FSCardFooter { }

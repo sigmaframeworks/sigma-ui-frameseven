@@ -2,24 +2,17 @@ import { Router } from "aurelia-router";
 export declare class FSApplication {
     router: Router;
     private __logger;
-    AppConfig: {
-        Key: string;
-        Title: string;
-        Version: string;
-    };
-    HttpConfig: {
-        BaseUrl: string;
-        Headers: {};
-        AuthorizationHeader: boolean;
-    };
     IsHttpInUse: boolean;
     IsAuthenticated: boolean;
     constructor(router: Router);
-    loadPage(view: any, params?: {}): void;
-    showPopup(view: any, model: any): void;
+    activeView: any;
+    loadPage(view: any, params?: any): void;
+    showPopup(view: any, model?: any): void;
+    closePopup(dp: any): void;
     showMainView(view: any): void;
     showLoginView(view: any): void;
-    mainViewBack(url: any): void;
+    mainViewBack(url: any, animate?: boolean): void;
+    removeSplash(): void;
     switchDir(dir: any): void;
     /** App Constants **/
     private __username;
@@ -47,4 +40,6 @@ export declare class FSApplication {
     toast(config: any): void;
     toastSuccess(config: any): void;
     toastError(config: any): void;
+    showIndicator(): void;
+    hideIndicator(): void;
 }

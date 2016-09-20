@@ -22,7 +22,7 @@ export module FSEvent {
     var __ob;
     var __tq: TaskQueue;
 
-    export function broadcast(event, data) {
+    export function broadcast(event, data?) {
         if (!__ea) {
             __ea = FSUtils.lazy(EventAggregator);
         }

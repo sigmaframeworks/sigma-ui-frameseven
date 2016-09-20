@@ -1,6 +1,7 @@
-define(["require", "exports", "./utils/fs-constants", "./utils/fs-utils", "./utils/fs-application", "./utils/fs-constants", "./utils/fs-event", "./utils/fs-formatters", "./utils/fs-http-service", "./utils/fs-utils", "./utils/fs-validation", 'lodash', 'moment', 'numeral', 'kramed', 'framework7'], function (require, exports, fs_constants_1, fs_utils_1, fs_application_1, fs_constants_2, fs_event_1, fs_formatters_1, fs_http_service_1, fs_utils_2, fs_validation_1) {
+define(["require", "exports", "./utils/fs-constants", "./utils/fs-utils", "./utils/fs-validation", "aurelia-validation", "./utils/fs-application", "./utils/fs-constants", "./utils/fs-event", "./utils/fs-formatters", "./utils/fs-http-service", "./utils/fs-utils", "./utils/fs-validation", 'lodash', 'moment', 'numeral', 'kramed', 'framework7'], function (require, exports, fs_constants_1, fs_utils_1, fs_validation_1, aurelia_validation_1, fs_application_1, fs_constants_2, fs_event_1, fs_formatters_1, fs_http_service_1, fs_utils_2, fs_validation_2) {
     "use strict";
     function configure(aurelia, configCallback) {
+        aurelia.container.registerHandler('fs-validator', function (container) { return container.get(fs_validation_1.FSValidationRenderer); });
         aurelia.globalResources('./core/fs-viewport');
         aurelia.globalResources('./core/fs-page');
         aurelia.globalResources('./components/fs-content');
@@ -9,6 +10,12 @@ define(["require", "exports", "./utils/fs-constants", "./utils/fs-utils", "./uti
         aurelia.globalResources('./components/fs-swiper');
         aurelia.globalResources('./inputs/fs-input');
         aurelia.globalResources('./utils/fs-converters');
+        aurelia_validation_1.ValidationRules
+            .customRule('phone', function (value, obj) { return value === null || value === undefined || PhoneLib.isValid(value); }, '\${$displayName } is not a valid phone number.');
+        aurelia_validation_1.ValidationRules
+            .customRule('integer', function (value, obj, min, max) { return value === null || value === undefined || Number.isInteger(value) && value >= (min || Number.MIN_VALUE) && value <= (max || Number.MAX_VALUE); }, '\${$displayName} must be an integer value between \${$config.min || "MIN_VALUE"} and \${$config.max || "MAX_VALUE"}.', function (min, max) { return ({ min: min, max: max }); });
+        aurelia_validation_1.ValidationRules
+            .customRule('decimal', function (value, obj, min, max) { return value === null || value === undefined || Math.floor(value % 1) === 0 && value >= (min || Number.MIN_VALUE) && value <= (max || Number.MAX_VALUE); }, '\${$displayName} must be a decimal value between \${$config.min || "MIN_VALUE"} and \${$config.max || "MAX_VALUE"}.', function (min, max) { return ({ min: min, max: max }); });
         fs_utils_1.kramed.setOptions({
             renderer: new fs_utils_1.kramed.Renderer(),
             gfm: true,
@@ -60,11 +67,11 @@ define(["require", "exports", "./utils/fs-constants", "./utils/fs-utils", "./uti
     exports.FSConstants = fs_constants_2.FSConstants;
     exports.FSEvent = fs_event_1.FSEvent;
     exports.FSFormat = fs_formatters_1.FSFormat;
-    exports.FSHttpService = fs_http_service_1.FSHttpService;
+    exports.FSHttpClient = fs_http_service_1.FSHttpClient;
     exports.FSUtils = fs_utils_2.FSUtils;
     exports._ = fs_utils_2._;
     exports.moment = fs_utils_2.moment;
     exports.numeral = fs_utils_2.numeral;
     exports.kramed = fs_utils_2.kramed;
-    exports.FSValidationRenderer = fs_validation_1.FSValidationRenderer;
+    exports.FSValidationRenderer = fs_validation_2.FSValidationRenderer;
 });

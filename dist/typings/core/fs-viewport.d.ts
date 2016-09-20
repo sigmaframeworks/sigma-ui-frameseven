@@ -5,9 +5,9 @@ export declare class FSViewport {
     swipePanel: any;
     showSplashProgress: boolean;
     class: string;
-    splashLoaderColor: string;
     splashProgressColor: string;
     constructor(element: Element, container: Container);
     attached(): void;
+    f7: any;
     init(): void;
 }

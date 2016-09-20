@@ -30,8 +30,8 @@ export class FSValidationRenderer {
     add(element: Element, error: ValidationError) {
         let formGroup: any = getParentByClass(element, 'fs-input-group');
         if (!formGroup) return;
-        formGroup.classList.add('ui-invalid');
-        formGroup.classList.remove('ui-valid');
+        formGroup.classList.add('fs-invalid');
+        formGroup.classList.remove('fs-valid');
 
         let errs = (formGroup.errors = formGroup.errors || []);
         errs.push(error);
@@ -64,8 +64,8 @@ export class FSValidationRenderer {
             }
         }
         if (errs.length == 0) {
-            formGroup.classList.remove('ui-invalid');
-            formGroup.classList.add('ui-valid');
+            formGroup.classList.remove('fs-invalid');
+            formGroup.classList.add('fs-valid');
         }
 
         // remove all messages related to the error.
