@@ -1,39 +1,48 @@
-.less-gradient (@startColor: #eee, @endColor: white, @fallback: white) {
-	background-color: @fallback;
-	background: -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
-	background: -webkit-linear-gradient(top, @startColor, @endColor);
-	background: -moz-linear-gradient(top, @startColor, @endColor);
-	background: -ms-linear-gradient(top, @startColor, @endColor);
-	background: -o-linear-gradient(top, @startColor, @endColor);
+.less-gradient (@startColor:#eee, @endColor: white, @fallback: white) {
+  background-color: @fallback;
+  background      : -webkit-gradient(linear, left top, left bottom, from(@startColor), to(@endColor));
+  background      : -webkit-linear-gradient(top, @startColor, @endColor);
+  background      : -moz-linear-gradient(top, @startColor, @endColor);
+  background      : -ms-linear-gradient(top, @startColor, @endColor);
+  background      : -o-linear-gradient(top, @startColor, @endColor);
 }
-.less-horizontal-gradient (@startColor: #eee, @endColor: white, @fallback: white) {
- 	background-color: @fallback;
-	background: -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
-	background: -webkit-linear-gradient(left, @startColor, @endColor);
-	background: -moz-linear-gradient(left, @startColor, @endColor);
-	background: -ms-linear-gradient(left, @startColor, @endColor);
-	background: -o-linear-gradient(left, @startColor, @endColor);
+
+.less-horizontal-gradient (@startColor:#eee, @endColor: white, @fallback: white) {
+  background-color: @fallback;
+  background      : -webkit-gradient(linear, left top, right top, from(@startColor), to(@endColor));
+  background      : -webkit-linear-gradient(left, @startColor, @endColor);
+  background      : -moz-linear-gradient(left, @startColor, @endColor);
+  background      : -ms-linear-gradient(left, @startColor, @endColor);
+  background      : -o-linear-gradient(left, @startColor, @endColor);
 }
+
 .less-transition (@transition) {
-	-webkit-transition: @transition;
-	-moz-transition:    @transition;
-	-ms-transition:     @transition;
-	-o-transition:      @transition;
+  -webkit-transition: @transition;
+  -moz-transition   : @transition;
+  -ms-transition    : @transition;
+  -o-transition     : @transition;
 }
+
 .less-keyframes(@name; @arguments) {
-  @-webkit-keyframes @name { @arguments();
+  @-webkit-keyframes @name {
+     @arguments();
   }
-  @-moz-keyframes @name { @arguments();
+  @-moz-keyframes @name {
+     @arguments();
   }
-  @-ms-keyframes @name { @arguments();
+  @-ms-keyframes @name {
+     @arguments();
   }
-  @-o-keyframes @name { @arguments();
+  @-o-keyframes @name {
+     @arguments();
   }
-  @keyframes @name { @arguments();
+  @keyframes @name {
+     @arguments();
   }
 }
-.less-animation (@name, @duration: 300ms, @delay: 0, @ease: ease) {
-	-webkit-animation: @name @duration @delay @ease;
-	-moz-animation:    @name @duration @delay @ease;
-	-ms-animation:     @name @duration @delay @ease;
+
+.less-animation (@name, @delay: 0, @duration:300ms, @ease: ease) {
+  -webkit-animation: @name @duration @delay @ease;
+  -moz-animation   : @name @duration @delay @ease;
+  -ms-animation    : @name @duration @delay @ease;
 }

@@ -175,12 +175,29 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
     }());
     exports.FSToolbar = FSToolbar;
     var FSRow = (function () {
-        function FSRow() {
+        function FSRow(element) {
+            this.element = element;
+            if (this.element.hasAttribute('top'))
+                this.element.classList.add('row-top');
+            if (this.element.hasAttribute('bottom'))
+                this.element.classList.add('row-bottom');
+            if (this.element.hasAttribute('middle'))
+                this.element.classList.add('row-middle');
+            if (this.element.hasAttribute('stretch'))
+                this.element.classList.add('row-stretch');
+            if (this.element.hasAttribute('start'))
+                this.element.classList.add('row-start');
+            if (this.element.hasAttribute('end'))
+                this.element.classList.add('row-end');
+            if (this.element.hasAttribute('center'))
+                this.element.classList.add('row-center');
+            if (this.element.hasAttribute('spaced'))
+                this.element.classList.add('row-spaced');
         }
         FSRow = __decorate([
             aurelia_framework_1.customElement('fs-row'),
             aurelia_framework_1.inlineView('<template class="row"><slot></slot></template>'), 
-            __metadata('design:paramtypes', [])
+            __metadata('design:paramtypes', [Element])
         ], FSRow);
         return FSRow;
     }());
@@ -188,14 +205,27 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
     var FSColumn = (function () {
         function FSColumn(element) {
             this.element = element;
+            this.width = '';
             if (this.element.hasAttribute('auto'))
                 this.element.classList.add('col-auto');
-            else
+            else if (this.element.hasAttribute('fill'))
                 this.element.classList.add('col-fill');
+            if (this.element.hasAttribute('top'))
+                this.element.classList.add('col-top');
+            if (this.element.hasAttribute('bottom'))
+                this.element.classList.add('col-bottom');
+            if (this.element.hasAttribute('middle'))
+                this.element.classList.add('col-middle');
+            if (this.element.hasAttribute('stretch'))
+                this.element.classList.add('col-stretch');
         }
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSColumn.prototype, "width", void 0);
         FSColumn = __decorate([
             aurelia_framework_1.customElement('fs-column'),
-            aurelia_framework_1.inlineView('<template class=""><slot></slot></template>'), 
+            aurelia_framework_1.inlineView('<template style="${width?\'flex-basis:\'+width : \'\'}"><slot></slot></template>'), 
             __metadata('design:paramtypes', [Element])
         ], FSColumn);
         return FSColumn;

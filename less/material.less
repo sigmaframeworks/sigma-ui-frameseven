@@ -11,93 +11,125 @@
 @import "_common.less";
 
 body {
-    &.layout-dark {
-        .notifications.list-block > ul {
-            background: #323232;
+  &.layout-dark {
+    .notifications.list-block > ul {
+      background: #323232;
+    }
+  }
+
+  .pages {
+    background: none;
+  }
+
+  .list-block .item-divider {
+    height: 12px;
+  }
+
+  .menu-list .list-item {
+    -webkit-border-start: 5px solid transparent;
+  }
+
+  .navbar {
+    background: @navBarBg;
+    color     : @navBarColor;
+
+    a {
+      color: @navBarColor;
+    }
+  }
+
+  .toolbar {
+    background: #fafafa;
+
+    a {
+      color: @themeColor;
+    }
+  }
+
+  .searchbar {
+    background: @alternateColor;
+  }
+
+  .menu .list-item.active {
+    -webkit-border-start: 5px solid @themeColor;
+  }
+
+  .fs-input-group {
+    .label-switch {
+      padding: 9px 0 9px 18px;
+    }
+
+    &.fs-invalid {
+      .item-input {
+        position: relative;
+
+        &:after {
+          background: @themeDanger;
         }
-    }
 
-    .pages {
-        background: none;
-    }
-
-    .list-block .item-divider {
-        height: 12px;
-    }
-
-    .menu-list .list-item {
-        -webkit-border-start: 5px solid transparent;
-    }
-
-    .navbar {
-        background: @navBarBg;
-        color     : @navBarColor;
-
-        a {
-            color: @navBarColor;
+        &:before {
+          content     : '';
+          position    : absolute;
+          bottom      : 0;
+          right       : 0;
+          border      : 5px solid @themeDanger;
+          border-color: transparent @themeDanger @themeDanger transparent;
         }
+      }
     }
 
-    .menu .list-item.active {
-        -webkit-border-start: 5px solid @themeColor;
-    }
+    &.fs-valid {
+      .item-input {
+        position: relative;
 
-    .fs-input-group {
-        .label-switch {
-            padding: 9px 0 9px 18px;
+        &:after {
+          background: @themeSuccess;
         }
 
-        &.fs-invalid {
-            .item-input {
-                position: relative;
-
-                &:after {
-                    background: @themeDanger;
-                }
-
-                &:before {
-                    content     : '';
-                    position    : absolute;
-                    bottom      : 0;
-                    right       : 0;
-                    border      : 5px solid @themeDanger;
-                    border-color: transparent @themeDanger @themeDanger transparent;
-                }
-            }
+        &:before {
+          content     : '';
+          position    : absolute;
+          bottom      : 0;
+          right       : 0;
+          border      : 5px solid @themeSuccess;
+          border-color: transparent @themeSuccess @themeSuccess transparent;
         }
-
-        &.fs-valid {
-            .item-input {
-                position: relative;
-
-                &:after {
-                    background: @themeSuccess;
-                }
-
-                &:before {
-                    content     : '';
-                    position    : absolute;
-                    bottom      : 0;
-                    right       : 0;
-                    border      : 5px solid @themeSuccess;
-                    border-color: transparent @themeSuccess @themeSuccess transparent;
-                }
-            }
-        }
+      }
     }
+  }
 }
 
 .theme-override(@theme, @color) {
-    .theme-@{theme} {
-        .menu-list .list-item.active {
-            border-color: @color;
-        }
+  .theme-@{theme} {
+    .menu-list .list-item.active {
+      border-color: @color;
     }
+
+    .searchbar {
+      background: desaturate(lighten(@color,10%), 20%);
+    }
+
+    .toolbar {
+      background: #fafafa;
+
+      &.toolbar-bottom {
+        .hairline( top, #e5e5e5);
+      }
+
+      &.toolbar-top {
+        .hairline( bottom, #e5e5e5);
+      }
+
+      a {
+        color: @color;
+      }
+    }
+  }
 }
 .theme-mixin(e(  'default'), @themeColor, color(@themeColor));
 .theme-mixin(e(  'alternate'), @alternateColor, color(@alternateColor));
-.theme-override(e( 'default'), @themeColor);
-.theme-override(e( 'alternate'), @alternateColor);
+.theme-override(e(  'default'), @themeColor);
+.theme-override(e(  'alternate'), @alternateColor);
 .theme-override(e(  'red'), @red);
 .theme-override(e(  'pink'), @pink);
 .theme-override(e(  'purple'), @purple);

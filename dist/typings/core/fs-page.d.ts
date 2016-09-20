@@ -36,8 +36,11 @@ export declare class FSPageContent {
 export declare class FSToolbar {
 }
 export declare class FSRow {
+    element: Element;
+    constructor(element: Element);
 }
 export declare class FSColumn {
     element: Element;
+    width: string;
     constructor(element: Element);
 }

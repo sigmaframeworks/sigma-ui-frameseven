@@ -42,4 +42,5 @@ export declare class FSSwitch extends FSGenericInput {
     element: Element;
     checked: boolean;
     constructor(element: Element);
+    bind(): void;
 }

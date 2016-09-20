@@ -7,18 +7,107 @@
 
 // backgrounds
 .bg-default {
-    background-color: @themeColor;
+  background-color: @themeColor;
 }
 
 .bg-alternate {
-    background-color: @alternateColor;
+  background-color: @alternateColor;
 }
 
 // text
 .color-default {
-    color: @themeColor;
+  color: @themeColor;
 }
 
 .color-alternate {
-    color: @alternateColor;
+  color: @alternateColor;
+}
+
+// Columns
+.col-fill {
+  flex: 1 1 0;
+}
+
+.col-full {
+  flex: 1 1 100%;
+}
+
+.col-auto {
+  width: auto;
+  flex : 0 0 auto;
+}
+
+// Row justify
+.row-start {
+  .justify-content(flex-start);
+}
+
+.row-end {
+  .justify-content(flex-end);
+}
+
+.row-center {
+  .justify-content(center);
+}
+
+.row-spaced {
+  .justify-content(space-between);
+}
+
+// Row vertical align
+.row-top {
+  .align-items(flex-start);
+}
+
+.row-middle {
+  .align-items(center);
+}
+
+.row-stretch {
+  .align-items(stretch);
+}
+
+.row-bottom {
+  .align-items(flex-end);
+}
+
+.col-top {
+  .align-self(flex-start);
+}
+
+.col-bottom {
+  .align-self(flex-end);
+}
+
+.col-middle {
+  .align-self(center);
+}
+
+.col-stretch {
+  .align-self(stretch);
+}
+
+// Padding / Margin
+.pad-0 {
+  padding: 0;
+}
+
+.pad-v {
+  margin: .5em 0;
+}
+
+.pad-h {
+  margin: 0 .5em;
+}
+
+.pad-all {
+  margin: .3em .5em;
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+.margin-v {
+  margin: .5em 0;
 }

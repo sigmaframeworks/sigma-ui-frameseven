@@ -12,6 +12,8 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
     var FSList = (function () {
         function FSList(element) {
             this.element = element;
+            if (this.element.hasAttribute('cards-list'))
+                this.element.classList.add('cards-list');
             if (this.element.hasAttribute('media-list'))
                 this.element.classList.add('media-list');
             this.__searchable = this.element.hasAttribute('searchable');
@@ -228,11 +230,12 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             this.placeholder = 'Search...';
             this.buttonCancel = 'Cancel';
             this.searchList = '';
+            this.searchIn = '.item-title,.item-subtitle,.item-text';
         }
         FSSearchbar.prototype.attached = function () {
             this.searchBar = framework7.searchbar(this.__form, {
                 searchList: '.list-block-search' + this.searchList,
-                searchIn: '.item-title,.item-subtitle,.item-text',
+                searchIn: this.searchIn,
                 onClear: this.onclear,
                 onEnable: this.onenable,
                 onDisable: this.ondisable,
@@ -270,6 +273,10 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             aurelia_framework_1.bindable(), 
             __metadata('design:type', Object)
         ], FSSearchbar.prototype, "searchList", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSSearchbar.prototype, "searchIn", void 0);
         FSSearchbar = __decorate([
             aurelia_framework_1.containerless(),
             aurelia_framework_1.customElement('fs-searchbar'),

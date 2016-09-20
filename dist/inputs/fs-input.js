@@ -174,6 +174,9 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             this.element = element;
             this.checked = false;
         }
+        FSSwitch.prototype.bind = function () {
+            this.checked = isTrue(this.checked);
+        };
         __decorate([
             aurelia_framework_1.bindable({ defaultBindingMode: aurelia_framework_1.bindingMode.twoWay }), 
             __metadata('design:type', Object)

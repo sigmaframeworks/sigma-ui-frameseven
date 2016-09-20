@@ -51,6 +51,7 @@ export declare class FSSearchbar {
     placeholder: string;
     buttonCancel: string;
     searchList: string;
+    searchIn: string;
     __form: any;
     searchBar: any;
     attached(): void;
