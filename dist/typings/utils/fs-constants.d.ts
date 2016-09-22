@@ -9,5 +9,6 @@ export declare module FSConstants {
         Headers: {};
         AuthorizationHeader: boolean;
     };
+    var swipeMenu: boolean;
     var menuPanel: string;
 }

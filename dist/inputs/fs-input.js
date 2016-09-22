@@ -32,6 +32,8 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             this.__extraClasses = '';
             if (element.hasAttribute('external'))
                 this.__extraClasses += 'external ';
+            if (element.hasAttribute('accordion-toggle'))
+                this.__extraClasses += ' accordion-item-toggle';
         }
         FSLink.prototype.__fireClick = function () {
             return sigma_ui_frameseven_1.FSEvent.fireEvent('click', this.element);
@@ -167,6 +169,82 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         return FSPhone;
     }());
     exports.FSPhone = FSPhone;
+    var FSDate = (function () {
+        function FSDate(element) {
+            this.element = element;
+        }
+        FSDate.prototype.attached = function () {
+            var today = new Date();
+            this.__picker = framework7.picker({
+                input: '#picker-date',
+                rotateEffect: true,
+                value: [today.getMonth(), today.getDate(), today.getFullYear(), today.getHours(), (today.getMinutes() < 10 ? '0' + today.getMinutes() : today.getMinutes())],
+                onChange: function (picker, values, displayValues) {
+                    var daysInMonth = new Date(picker.value[2], picker.value[0] * 1 + 1, 0).getDate();
+                    if (values[1] > daysInMonth) {
+                        picker.cols[1].setValue(daysInMonth);
+                    }
+                },
+                formatValue: function (p, values, displayValues) {
+                    return displayValues[0] + ' ' + values[1] + ', ' + values[2] + ' ' + values[3] + ':' + values[4];
+                },
+                cols: [
+                    {
+                        values: ('0 1 2 3 4 5 6 7 8 9 10 11').split(' '),
+                        displayValues: ('January February March April May June July August September October November December').split(' '),
+                        textAlign: 'left'
+                    },
+                    {
+                        values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+                    },
+                    {
+                        values: (function () {
+                            var arr = [];
+                            for (var i = 1950; i <= 2030; i++) {
+                                arr.push(i);
+                            }
+                            return arr;
+                        })(),
+                    },
+                    {
+                        divider: true,
+                        content: '  '
+                    },
+                    {
+                        values: (function () {
+                            var arr = [];
+                            for (var i = 0; i <= 23; i++) {
+                                arr.push(i);
+                            }
+                            return arr;
+                        })(),
+                    },
+                    {
+                        divider: true,
+                        content: ':'
+                    },
+                    {
+                        values: (function () {
+                            var arr = [];
+                            for (var i = 0; i <= 59; i++) {
+                                arr.push(i < 10 ? '0' + i : i);
+                            }
+                            return arr;
+                        })(),
+                    }
+                ]
+            });
+        };
+        FSDate.prototype.unbind = function () {
+            this.__picker.destroy();
+        };
+        FSDate = __decorate([
+            aurelia_framework_1.customAttribute('date'), 
+            __metadata('design:paramtypes', [Element])
+        ], FSDate);
+        return FSDate;
+    }());
+    exports.FSDate = FSDate;
     var FSSwitch = (function (_super) {
         __extends(FSSwitch, _super);
         function FSSwitch(element) {

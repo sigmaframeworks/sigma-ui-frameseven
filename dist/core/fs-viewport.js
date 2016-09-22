@@ -13,10 +13,13 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         function FSViewport(element, container) {
             this.element = element;
             this.container = container;
+            this.swipeMenu = false;
             this.showSplashProgress = false;
             this.class = "";
             this.splashProgressColor = "multi";
             sigma_ui_frameseven_1.FSUtils.container(container);
+            if (element.hasAttribute('swipe-menu'))
+                sigma_ui_frameseven_1.FSConstants.swipeMenu = this.swipeMenu = true;
             if (element.hasAttribute('splash-progress'))
                 this.showSplashProgress = true;
             if (element.hasAttribute('menu-start'))
@@ -42,10 +45,12 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                 router: true,
                 swipeout: false,
                 sortable: false,
-                swipePanel: isRtl ? (this.swipePanel == "left" ? "right" : "left") : this.swipePanel,
+                swipePanelActiveArea: 44,
+                swipePanel: this.swipeMenu ? (isRtl ? (this.swipePanel == "left" ? "right" : "left") : this.swipePanel) : false,
                 notificationHold: 2500,
                 imagesLazyLoadThreshold: 150,
                 notificationCloseOnClick: true,
+                modalTitle: sigma_ui_frameseven_1.FSConstants.App.Title,
                 materialPageLoadDelay: 100,
                 material: Framework7.prototype.device.android,
                 onAjaxStart: function (xhr) { return xhr.open('GET', 'blank.html'); },
@@ -56,6 +61,7 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                 }
             });
             framework7.menuPanel = "panel-" + (framework7.rtl ? (sigma_ui_frameseven_1.FSConstants.menuPanel == "left" ? "right" : "left") : sigma_ui_frameseven_1.FSConstants.menuPanel);
+            framework7.init();
             if (this.showSplashProgress)
                 framework7.showProgressbar('.fs-splash', this.splashProgressColor);
             if (Framework7.prototype.device.android) {

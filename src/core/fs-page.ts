@@ -87,6 +87,17 @@ export class FSNavBar {
 }
 
 @containerless()
+@customElement('fs-nav-left')
+@inlineView('<template><div slot="left" class="left"><slot></slot></div></template>')
+export class FSNavLeft { }
+
+@containerless()
+@customElement('fs-nav-right')
+@inlineView('<template><div slot="right" class="right"><slot></slot></div></template>')
+export class FSNavRight { }
+
+
+@containerless()
 @customElement('fs-tool')
 @inlineView('<template><a href="#" click.trigger="__fireClick()" data-panel="${menuPanel}" class="link icon-only ${dataClass}"><slot><i class="icon ${iconClass}"></i></slot></a></template>')
 export class FSNavTool {
@@ -120,8 +131,20 @@ export class FSNavTool {
 }
 
 @customElement('fs-page-content')
-@inlineView('<template class="page-content block"><slot></slot></template>')
-export class FSPageContent { }
+@inlineView('<template class="page-content block"><div if.bind="hasPtr" class="pull-to-refresh-layer"><div class="preloader"></div><div class="pull-to-refresh-arrow"></div></div><slot></slot></template>')
+export class FSPageContent {
+  hasPtr = false;
+  constructor(public element: Element) {
+    if (this.hasPtr = this.element.hasAttribute('pull-to-refresh')) this.element.classList.add('pull-to-refresh-content');
+
+    this.element['refreshDone'] = () => this.refreshDone();
+    Dom7(this.element).on('refresh', e => FSEvent.fireEvent('refresh', this.element));
+  }
+
+  refreshDone() {
+    framework7.pullToRefreshDone();
+  }
+}
 
 @customElement('fs-toolbar')
 @inlineView('<template class="toolbar toolbar-bottom"><div class="toolbar-inner"><slot></slot></div></template>')

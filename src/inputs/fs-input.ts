@@ -30,6 +30,7 @@ export class FSLink {
 
   constructor(private element: Element) {
     if (element.hasAttribute('external')) this.__extraClasses += 'external ';
+    if (element.hasAttribute('accordion-toggle')) this.__extraClasses += ' accordion-item-toggle';
   }
 
   __fireClick() {

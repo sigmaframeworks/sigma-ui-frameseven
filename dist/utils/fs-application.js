@@ -46,7 +46,7 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./fs-util
             catch (e) { }
         };
         FSApplication.prototype.showMainView = function (view) {
-            framework7.params.swipePanel = framework7.params.rtl ? (fs_constants_1.FSConstants.menuPanel == "left" ? "right" : "left") : fs_constants_1.FSConstants.menuPanel;
+            framework7.params.swipePanel = fs_constants_1.FSConstants.swipeMenu ? (framework7.params.rtl ? (fs_constants_1.FSConstants.menuPanel == "left" ? "right" : "left") : fs_constants_1.FSConstants.menuPanel) : false;
             mainView.history = mainView.history.splice(0, 1);
             mainView.loadPage(view);
             Dom7('.view-alternate').addClass('hidden');

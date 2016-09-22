@@ -23,6 +23,10 @@ export declare class FSPopup {
 export declare class FSNavBar {
     navTitle: string;
 }
+export declare class FSNavLeft {
+}
+export declare class FSNavRight {
+}
 export declare class FSNavTool {
     element: Element;
     iconClass: string;
@@ -32,6 +36,10 @@ export declare class FSNavTool {
     __fireClick(): any;
 }
 export declare class FSPageContent {
+    element: Element;
+    hasPtr: boolean;
+    constructor(element: Element);
+    refreshDone(): void;
 }
 export declare class FSToolbar {
 }

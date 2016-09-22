@@ -12,8 +12,10 @@ import {FSEvent} from "../sigma-ui-frameseven";
 export class FSList {
   __searchable
   constructor(public element: Element) {
-    if (this.element.hasAttribute('cards-list')) this.element.classList.add('cards-list');
-    if (this.element.hasAttribute('media-list')) this.element.classList.add('media-list');
+    if (this.element.hasAttribute('accordion')) this.element.classList.add('accordion-list');
+    if (this.element.hasAttribute('accordion-content')) this.element.classList.add('accordion-item-content');
+    if (this.element.hasAttribute('cards')) this.element.classList.add('cards-list');
+    if (this.element.hasAttribute('media')) this.element.classList.add('media-list');
     this.__searchable = this.element.hasAttribute('searchable');
   }
 }
@@ -25,8 +27,15 @@ export class FSListBlock { }
 
 @containerless()
 @customElement('fs-list-card')
-@inlineView('<template><li class="card"><slot></slot></li></template>')
-export class FSListCard { }
+@inlineView('<template><li class="card ${class}"><slot></slot></li></template>')
+export class FSListCard {
+  @bindable()
+  class = '';
+  constructor(public element: Element) { }
+  bind() {
+    if (this.element.hasAttribute('accordion-item')) this.class += ' accordion-item';
+  }
+}
 
 @containerless()
 @customElement('fs-list-group')
@@ -46,8 +55,15 @@ export class FSListDivider { }
 
 @containerless()
 @customElement('fs-item-media')
-@inlineView('<template><div class="item-media" slot="media"><slot></slot></div></template>')
-export class FSListMedia { }
+@inlineView('<template><div class="item-media ${class}" slot="media"><slot></slot></div></template>')
+export class FSListMedia {
+  @bindable()
+  class = '';
+  constructor(public element: Element) { }
+  bind() {
+    if (this.element.hasAttribute('accordion')) this.class += ' accordion-item';
+  }
+}
 
 @customElement('fs-item-title')
 @inlineView('<template class="item-title col-fill"><slot></slot></template>')
@@ -77,9 +93,18 @@ export class FSListItem {
   class: string = '';
   @bindable()
   icon: string = '';
-  constructor(public element: Element) {
+  constructor(public element: Element) { }
+  bind() {
     if (this.element.hasAttribute('card')) this.class += ' card';
   }
+}
+
+@containerless()
+@customElement('fs-accordion-content')
+@inlineView('<template><div slot="accordion-content" class="accordion-item-content ${class}"><div class="content-block"><slot></slot></div></div></template>')
+export class FSNavRight {
+  @bindable()
+  class: string = '';
 }
 
 @containerless()
@@ -98,12 +123,12 @@ export class FSListLink {
   private __link;
 
 
-  constructor(public element: Element) {
-    if (this.element.hasAttribute('card')) this.class += ' card';
-  }
+  constructor(public element: Element) { }
   bind() {
     if (this.element.hasAttribute('smart-select')) this.__link.classList.add('smart-select');
     if (this.element.hasAttribute('external')) this.__link.classList.add('external');
+    if (this.element.hasAttribute('card')) this.class += ' card';
+    if (this.element.hasAttribute('accordion')) this.class += ' accordion-item';
   }
 
   __fireClick() {
@@ -148,6 +173,10 @@ export class FSSearchbar {
       onDisable: this.ondisable,
       customSearch: isFunction(this.onsearch) ? this.onsearch : false
     });
+  }
+
+  disable() {
+    this.searchBar.disable();
   }
 
   unbind() {

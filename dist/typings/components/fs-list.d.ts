@@ -6,6 +6,9 @@ export declare class FSList {
 export declare class FSListBlock {
 }
 export declare class FSListCard {
+    element: Element;
+    class: string;
+    constructor(element: Element);
 }
 export declare class FSListGroup {
     label: string;
@@ -15,6 +18,9 @@ export declare class FSListLabel {
 export declare class FSListDivider {
 }
 export declare class FSListMedia {
+    element: Element;
+    class: string;
+    constructor(element: Element);
 }
 export declare class FSListTitle {
 }
@@ -31,6 +37,9 @@ export declare class FSListItem {
     class: string;
     icon: string;
     constructor(element: Element);
+}
+export declare class FSNavRight {
+    class: string;
 }
 export declare class FSListLink {
     element: Element;
@@ -55,5 +64,6 @@ export declare class FSSearchbar {
     __form: any;
     searchBar: any;
     attached(): void;
+    disable(): void;
     unbind(): void;
 }

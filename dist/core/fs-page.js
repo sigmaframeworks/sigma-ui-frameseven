@@ -114,6 +114,30 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         return FSNavBar;
     }());
     exports.FSNavBar = FSNavBar;
+    var FSNavLeft = (function () {
+        function FSNavLeft() {
+        }
+        FSNavLeft = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-nav-left'),
+            aurelia_framework_1.inlineView('<template><div slot="left" class="left"><slot></slot></div></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSNavLeft);
+        return FSNavLeft;
+    }());
+    exports.FSNavLeft = FSNavLeft;
+    var FSNavRight = (function () {
+        function FSNavRight() {
+        }
+        FSNavRight = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-nav-right'),
+            aurelia_framework_1.inlineView('<template><div slot="right" class="right"><slot></slot></div></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSNavRight);
+        return FSNavRight;
+    }());
+    exports.FSNavRight = FSNavRight;
     var FSNavTool = (function () {
         function FSNavTool(element) {
             this.element = element;
@@ -153,12 +177,22 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
     }());
     exports.FSNavTool = FSNavTool;
     var FSPageContent = (function () {
-        function FSPageContent() {
+        function FSPageContent(element) {
+            var _this = this;
+            this.element = element;
+            this.hasPtr = false;
+            if (this.hasPtr = this.element.hasAttribute('pull-to-refresh'))
+                this.element.classList.add('pull-to-refresh-content');
+            this.element['refreshDone'] = function () { return _this.refreshDone(); };
+            Dom7(this.element).on('refresh', function (e) { return sigma_ui_frameseven_1.FSEvent.fireEvent('refresh', _this.element); });
         }
+        FSPageContent.prototype.refreshDone = function () {
+            framework7.pullToRefreshDone();
+        };
         FSPageContent = __decorate([
             aurelia_framework_1.customElement('fs-page-content'),
-            aurelia_framework_1.inlineView('<template class="page-content block"><slot></slot></template>'), 
-            __metadata('design:paramtypes', [])
+            aurelia_framework_1.inlineView('<template class="page-content block"><div if.bind="hasPtr" class="pull-to-refresh-layer"><div class="preloader"></div><div class="pull-to-refresh-arrow"></div></div><slot></slot></template>'), 
+            __metadata('design:paramtypes', [Element])
         ], FSPageContent);
         return FSPageContent;
     }());

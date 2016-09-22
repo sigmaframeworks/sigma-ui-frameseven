@@ -10,23 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 define(["require", "exports", "aurelia-framework"], function (require, exports, aurelia_framework_1) {
     "use strict";
     var FSCard = (function () {
-        function FSCard() {
+        function FSCard(element) {
+            this.element = element;
+            if (this.element.hasAttribute('accordion-item'))
+                this.element.classList.add('accordion-item');
         }
         FSCard = __decorate([
             aurelia_framework_1.customElement('fs-card'),
             aurelia_framework_1.inlineView('<template class="card block"><slot></slot></template>'), 
-            __metadata('design:paramtypes', [])
+            __metadata('design:paramtypes', [Element])
         ], FSCard);
         return FSCard;
     }());
     exports.FSCard = FSCard;
     var FSCardContent = (function () {
-        function FSCardContent() {
+        function FSCardContent(element) {
+            this.element = element;
+            if (this.element.hasAttribute('accordion-content'))
+                this.element.classList.add('accordion-item-content');
         }
         FSCardContent = __decorate([
             aurelia_framework_1.customElement('fs-card-content'),
             aurelia_framework_1.inlineView('<template class="card-content block"><div class="card-content-inner"><slot></slot></div></template>'), 
-            __metadata('design:paramtypes', [])
+            __metadata('design:paramtypes', [Element])
         ], FSCardContent);
         return FSCardContent;
     }());

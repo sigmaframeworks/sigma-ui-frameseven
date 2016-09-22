@@ -5,12 +5,8 @@
 -->
 <template class="navbar">
   <div class="navbar-inner">
-    <div class="left">
-      <slot name="left"></slot>
-    </div>
-    <div class="center sliding">${navTitle}</div>
-    <div class="right">
-      <slot name="right"></slot>
-    </div>
+    <slot name="left"></slot>
+    <div class="center sliding"><slot>${navTitle}</slot></div>
+    <slot name="right"></slot>
   </div>
 </template>

@@ -38,6 +38,13 @@ export declare class FSPhone {
     attached(): void;
     __format($event: any): void;
 }
+export declare class FSDate {
+    __picker: any;
+    element: HTMLInputElement;
+    constructor(element: Element);
+    attached(): void;
+    unbind(): void;
+}
 export declare class FSSwitch extends FSGenericInput {
     element: Element;
     checked: boolean;

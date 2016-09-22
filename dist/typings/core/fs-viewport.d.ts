@@ -3,6 +3,7 @@ export declare class FSViewport {
     private element;
     private container;
     swipePanel: any;
+    swipeMenu: boolean;
     showSplashProgress: boolean;
     class: string;
     splashProgressColor: string;

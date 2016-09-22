@@ -12,6 +12,7 @@ define(["require", "exports"], function (require, exports) {
             Headers: {},
             AuthorizationHeader: false
         };
+        FSConstants.swipeMenu = false;
         FSConstants.menuPanel = 'left';
     })(FSConstants = exports.FSConstants || (exports.FSConstants = {}));
 });
