@@ -6,7 +6,9 @@
 <template class="navbar">
   <div class="navbar-inner">
     <slot name="left"></slot>
-    <div class="center sliding"><slot>${navTitle}</slot></div>
+    <div class="center sliding">
+      <slot>${navTitle}</slot>
+    </div>
     <slot name="right"></slot>
   </div>
 </template>
