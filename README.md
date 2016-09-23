@@ -11,9 +11,9 @@ A UI Framework for building mobile applications on Framework7+Aurelia
 [![Website](https://img.shields.io/badge/visit-website-orange.svg?style=flat)](http://sigmaframeworks.io)
 
 
-**[Documentation](http://sigmaframeworks.io/docs/framework)**
+**[Documentation](http://sigmaframeworks.io/)**
 
-**[Demo](http://demo.sigmaframeworks.io/)**
+**[Demo](http://frameseven.sigmaframeworks.io/default.html)**
 
 ---
 
