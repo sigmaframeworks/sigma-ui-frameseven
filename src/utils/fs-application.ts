@@ -83,8 +83,8 @@ export class FSApplication {
     framework7.menuPanel = "panel-" + framework7.params.swipePanel;
     setTimeout(() => {
       framework7.initSwipePanels();
-      if (mainView.activePage) framework7.reinitPage(mainView.activePage.view.container)
-      if (loginView.activePage) framework7.reinitPage(loginView.activePage.view.container)
+      // if (mainView.activePage) framework7.reinitPage(mainView.activePage.view.container)
+      // if (loginView.activePage) framework7.reinitPage(loginView.activePage.view.container)
     }, 100);
   }
 
