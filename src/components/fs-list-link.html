@@ -4,20 +4,25 @@
 // @license     : MIT
 -->
 <template>
-<li class="list-item ${class}">
-    <a href.bind="href" class="item-link" ref="__link" click.trigger="__fireClick()" data-open-in.bind="openIn" data-back-on-select="true">
-        <slot name="select"></slot>
-        <div class="item-content">
-            <slot name="media">
-                <div class="item-media" if.bind="icon">
-                    <i class="icon ${icon}"></i>
-                </div>
-            </slot>
-            <div class="item-inner">
-                <slot></slot>
-            </div>
-        </div>
-        <slot name="accordion-content"></slot>
-    </a>
-</li>
+  <a
+    href.bind="href"
+    class="item-link item-content"
+    ref="__link"
+    click.trigger="__fireEvent('click')"
+    data-back-text.bind="dataBackText"
+    data-back-on-select.bind="dataBackOnSelect"
+    data-page-title.bind="dataPageTitle"
+    data-searchbar.bind="dataSearchbar"
+    data-searchbar-placeholder.bind="dataSearchbarPlaceholder">
+
+    <slot name="select"></slot>
+    <slot name="media">
+      <div class="item-media" if.bind="icon">
+        <span class="icon ${icon}"></span>
+      </div>
+    </slot>
+    <div class="item-inner">
+      <slot></slot>
+    </div>
+  </a>
 </template>

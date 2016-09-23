@@ -1,0 +1,24 @@
+<!--
+// @author      : Adarsh Pastakia
+// @copyright   : 2016 Sigma Frameworks
+// @license     : MIT
+-->
+<template>
+<li
+  ref="__listItem"
+  class="list-item ${class} swipeout"
+  open.trigger="__fireEvent('open')"
+  opened.trigger="__fireEvent('opened')"
+  close.trigger="__fireEvent('close')"
+  closed.trigger="__fireEvent('closed')"
+  delete.trigger="__fireEvent('delete')"
+  deleted.trigger="__fireEvent('deleted')">
+
+  <div class="swipeout-content">
+    <slot></slot>
+  </div>
+
+  <slot name="swipe-left"></slot>
+  <slot name="swipe-right"></slot>
+</li>
+</template>

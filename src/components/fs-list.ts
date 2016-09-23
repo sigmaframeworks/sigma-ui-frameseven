@@ -26,6 +26,14 @@ export class FSList {
 export class FSListBlock { }
 
 @containerless()
+@customElement('fs-list-group')
+@inlineView('<template><div class="list-group"><ul><li class="list-group-title" if.bind="label">${label}</li><slot></slot></ul></div></template>')
+export class FSListGroup {
+  @bindable()
+  label: string = '';
+}
+
+@containerless()
 @customElement('fs-list-card')
 @inlineView('<template><li class="card ${class}"><slot></slot></li></template>')
 export class FSListCard {
@@ -38,11 +46,38 @@ export class FSListCard {
 }
 
 @containerless()
-@customElement('fs-list-group')
-@inlineView('<template><div class="list-group"><ul><li class="list-group-title" if.bind="label">${label}</li><slot></slot></ul></div></template>')
-export class FSListGroup {
+@customElement('fs-list-item')
+@useView('./fs-list-item.html')
+export class FSListItem {
   @bindable()
-  label: string = '';
+  class: string = '';
+
+  private __listItem;
+
+  constructor(public element: Element) { }
+  bind() {
+    if (this.element.hasAttribute('accordion-item')) this.class += ' accordion-item';
+  }
+}
+
+@containerless()
+@customElement('fs-list-swipeout')
+@useView('./fs-list-swipeout.html')
+export class FSListSwipeout {
+  @bindable()
+  class: string = '';
+
+  private __listItem;
+
+  constructor(public element: Element) { }
+  bind() {
+    if (this.element.hasAttribute('card')) this.class += ' card';
+    framework7.initSwipeout(this.__listItem);
+  }
+
+  __fireEvent(event) {
+    return FSEvent.fireEvent(event, this.element);
+  }
 }
 
 @customElement('fs-list-label')
@@ -60,9 +95,6 @@ export class FSListMedia {
   @bindable()
   class = '';
   constructor(public element: Element) { }
-  bind() {
-    if (this.element.hasAttribute('accordion')) this.class += ' accordion-item';
-  }
 }
 
 @customElement('fs-item-title')
@@ -86,29 +118,33 @@ export class FSListSubtitle { }
 export class FSListText { }
 
 @containerless()
-@customElement('fs-list-item')
-@useView('./fs-list-item.html')
-export class FSListItem {
-  @bindable()
-  class: string = '';
-  @bindable()
-  icon: string = '';
-  constructor(public element: Element) { }
-  bind() {
-    if (this.element.hasAttribute('card')) this.class += ' card';
-  }
-}
-
-@containerless()
 @customElement('fs-accordion-content')
 @inlineView('<template><div slot="accordion-content" class="accordion-item-content ${class}"><div class="content-block"><slot></slot></div></div></template>')
-export class FSNavRight {
+export class FSAccordionContent {
   @bindable()
   class: string = '';
 }
 
 @containerless()
-@customElement('fs-list-link')
+@customElement('fs-swipeout-left')
+@inlineView('<template><div slot="swipe-left" class="swipeout-actions-left"><slot></slot></div></template>')
+export class FSSwipeLeft {
+}
+@containerless()
+@customElement('fs-swipeout-right')
+@inlineView('<template><div slot="swipe-right" class="swipeout-actions-right"><slot></slot></div></template>')
+export class FSSwipeRight {
+}
+
+@customElement('fs-item-content')
+@useView('./fs-list-content.html')
+export class FSListItemContent {
+  @bindable()
+  icon: string = '';
+}
+
+@containerless()
+@customElement('fs-item-link')
 @useView('./fs-list-link.html')
 export class FSListLink {
   @bindable()
@@ -117,22 +153,34 @@ export class FSListLink {
   icon: string = '';
   @bindable()
   href: string = '#';
+
+  // Smart Selects
   @bindable()
-  openIn: string = 'picker';
+  dataOpenIn: string = '';
+  @bindable()
+  dataSearchbar = "false";
+  @bindable()
+  dataSearchbarPlaceholder = "Search...";
+  @bindable()
+  dataPageTitle = "";
+  @bindable()
+  dataBackText = "";
+  @bindable()
+  dataBackOnSelect = "true";
 
   private __link;
-
 
   constructor(public element: Element) { }
   bind() {
     if (this.element.hasAttribute('smart-select')) this.__link.classList.add('smart-select');
     if (this.element.hasAttribute('external')) this.__link.classList.add('external');
     if (this.element.hasAttribute('card')) this.class += ' card';
-    if (this.element.hasAttribute('accordion')) this.class += ' accordion-item';
+
+    if (this.dataOpenIn != '') this.__link.dataset['openIn'] = this.dataOpenIn;
   }
 
-  __fireClick() {
-    return FSEvent.fireEvent('click', this.element);
+  __fireEvent(event) {
+    return FSEvent.fireEvent(event, this.element);
   }
 }
 
