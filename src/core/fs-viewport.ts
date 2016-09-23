@@ -75,7 +75,6 @@ export class FSViewport {
       }
     });
     framework7.menuPanel = "panel-" + (framework7.rtl ? (FSConstants.menuPanel == "left" ? "right" : "left") : FSConstants.menuPanel);
-    framework7.init();
     if (this.showSplashProgress) framework7.showProgressbar('.fs-splash', this.splashProgressColor);
 
     if (Framework7.prototype.device.android) {
