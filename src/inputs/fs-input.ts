@@ -19,18 +19,30 @@ export class FSGenericInput {
 
 @containerless()
 @customElement('fs-link')
-@inlineView('<template><a click.trigger="__fireClick()" class="link ${class} ${__extraClasses}" href.bind="href"><slot></slot></a></template>')
+@inlineView('<template><a ref="__link" click.trigger="__fireClick()" class="link ${class} ${__extraClasses}" href.bind="href" data-confirm.bind="dataConfirm" data-confirm-title.bind="dataConfirmTitle" data-close-on-cancel.bind="dataCloseOnCancel"><slot></slot></a></template>')
 export class FSLink {
   @bindable()
   href: string = '#';
   @bindable()
   class: string = '';
 
-  __extraClasses = '';
+  @bindable()
+  dataConfirm: string = '';
+  @bindable()
+  dataConfirmTitle: string = '';
+  @bindable()
+  dataCloseOnCancel: string = '';
+
+  private __link;
+  private __extraClasses = '';
 
   constructor(private element: Element) {
     if (element.hasAttribute('external')) this.__extraClasses += 'external ';
     if (element.hasAttribute('accordion-toggle')) this.__extraClasses += ' accordion-item-toggle';
+  }
+
+  attached() {
+    console.log(this.__link.dataset = this.element['dataset']);
   }
 
   __fireClick() {
