@@ -7,8 +7,13 @@ export declare class FSLink {
     private element;
     href: string;
     class: string;
-    __extraClasses: string;
+    dataConfirm: string;
+    dataConfirmTitle: string;
+    dataCloseOnCancel: string;
+    private __link;
+    private __extraClasses;
     constructor(element: Element);
+    attached(): void;
     __fireClick(): any;
 }
 export declare class FSButton {

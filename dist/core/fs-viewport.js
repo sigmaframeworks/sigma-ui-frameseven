@@ -61,7 +61,6 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                 }
             });
             framework7.menuPanel = "panel-" + (framework7.rtl ? (sigma_ui_frameseven_1.FSConstants.menuPanel == "left" ? "right" : "left") : sigma_ui_frameseven_1.FSConstants.menuPanel);
-            framework7.init();
             if (this.showSplashProgress)
                 framework7.showProgressbar('.fs-splash', this.splashProgressColor);
             if (Framework7.prototype.device.android) {

@@ -42,26 +42,6 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         return FSListBlock;
     }());
     exports.FSListBlock = FSListBlock;
-    var FSListCard = (function () {
-        function FSListCard(element) {
-            this.element = element;
-            this.class = '';
-            if (this.element.hasAttribute('accordion-item'))
-                this.class += ' accordion-item';
-        }
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', Object)
-        ], FSListCard.prototype, "class", void 0);
-        FSListCard = __decorate([
-            aurelia_framework_1.containerless(),
-            aurelia_framework_1.customElement('fs-list-card'),
-            aurelia_framework_1.inlineView('<template><li class="card ${class}"><slot></slot></li></template>'), 
-            __metadata('design:paramtypes', [Element])
-        ], FSListCard);
-        return FSListCard;
-    }());
-    exports.FSListCard = FSListCard;
     var FSListGroup = (function () {
         function FSListGroup() {
             this.label = '';
@@ -79,6 +59,76 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         return FSListGroup;
     }());
     exports.FSListGroup = FSListGroup;
+    var FSListCard = (function () {
+        function FSListCard(element) {
+            this.element = element;
+            this.class = '';
+        }
+        FSListCard.prototype.bind = function () {
+            if (this.element.hasAttribute('accordion-item'))
+                this.class += ' accordion-item';
+        };
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSListCard.prototype, "class", void 0);
+        FSListCard = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-list-card'),
+            aurelia_framework_1.inlineView('<template><li class="card ${class}"><slot></slot></li></template>'), 
+            __metadata('design:paramtypes', [Element])
+        ], FSListCard);
+        return FSListCard;
+    }());
+    exports.FSListCard = FSListCard;
+    var FSListItem = (function () {
+        function FSListItem(element) {
+            this.element = element;
+            this.class = '';
+        }
+        FSListItem.prototype.bind = function () {
+            if (this.element.hasAttribute('accordion-item'))
+                this.class += ' accordion-item';
+        };
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSListItem.prototype, "class", void 0);
+        FSListItem = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-list-item'),
+            aurelia_framework_1.useView('./fs-list-item.html'), 
+            __metadata('design:paramtypes', [Element])
+        ], FSListItem);
+        return FSListItem;
+    }());
+    exports.FSListItem = FSListItem;
+    var FSListSwipeout = (function () {
+        function FSListSwipeout(element) {
+            this.element = element;
+            this.class = '';
+        }
+        FSListSwipeout.prototype.bind = function () {
+            if (this.element.hasAttribute('card'))
+                this.class += ' card';
+            framework7.initSwipeout(this.__listItem);
+        };
+        FSListSwipeout.prototype.__fireEvent = function (event) {
+            return sigma_ui_frameseven_1.FSEvent.fireEvent(event, this.element);
+        };
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSListSwipeout.prototype, "class", void 0);
+        FSListSwipeout = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-list-swipeout'),
+            aurelia_framework_1.useView('./fs-list-swipeout.html'), 
+            __metadata('design:paramtypes', [Element])
+        ], FSListSwipeout);
+        return FSListSwipeout;
+    }());
+    exports.FSListSwipeout = FSListSwipeout;
     var FSListLabel = (function () {
         function FSListLabel() {
         }
@@ -105,8 +155,6 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         function FSListMedia(element) {
             this.element = element;
             this.class = '';
-            if (this.element.hasAttribute('accordion'))
-                this.class += ' accordion-item';
         }
         __decorate([
             aurelia_framework_1.bindable(), 
@@ -176,68 +224,88 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         return FSListText;
     }());
     exports.FSListText = FSListText;
-    var FSListItem = (function () {
-        function FSListItem(element) {
-            this.element = element;
-            this.class = '';
-            this.icon = '';
-            if (this.element.hasAttribute('card'))
-                this.class += ' card';
-        }
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', String)
-        ], FSListItem.prototype, "class", void 0);
-        __decorate([
-            aurelia_framework_1.bindable(), 
-            __metadata('design:type', String)
-        ], FSListItem.prototype, "icon", void 0);
-        FSListItem = __decorate([
-            aurelia_framework_1.containerless(),
-            aurelia_framework_1.customElement('fs-list-item'),
-            aurelia_framework_1.useView('./fs-list-item.html'), 
-            __metadata('design:paramtypes', [Element])
-        ], FSListItem);
-        return FSListItem;
-    }());
-    exports.FSListItem = FSListItem;
-    var FSNavRight = (function () {
-        function FSNavRight() {
+    var FSAccordionContent = (function () {
+        function FSAccordionContent() {
             this.class = '';
         }
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', String)
-        ], FSNavRight.prototype, "class", void 0);
-        FSNavRight = __decorate([
+        ], FSAccordionContent.prototype, "class", void 0);
+        FSAccordionContent = __decorate([
             aurelia_framework_1.containerless(),
             aurelia_framework_1.customElement('fs-accordion-content'),
             aurelia_framework_1.inlineView('<template><div slot="accordion-content" class="accordion-item-content ${class}"><div class="content-block"><slot></slot></div></div></template>'), 
             __metadata('design:paramtypes', [])
-        ], FSNavRight);
-        return FSNavRight;
+        ], FSAccordionContent);
+        return FSAccordionContent;
     }());
-    exports.FSNavRight = FSNavRight;
+    exports.FSAccordionContent = FSAccordionContent;
+    var FSSwipeLeft = (function () {
+        function FSSwipeLeft() {
+        }
+        FSSwipeLeft = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-swipeout-left'),
+            aurelia_framework_1.inlineView('<template><div slot="swipe-left" class="swipeout-actions-left"><slot></slot></div></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSSwipeLeft);
+        return FSSwipeLeft;
+    }());
+    exports.FSSwipeLeft = FSSwipeLeft;
+    var FSSwipeRight = (function () {
+        function FSSwipeRight() {
+        }
+        FSSwipeRight = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-swipeout-right'),
+            aurelia_framework_1.inlineView('<template><div slot="swipe-right" class="swipeout-actions-right"><slot></slot></div></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSSwipeRight);
+        return FSSwipeRight;
+    }());
+    exports.FSSwipeRight = FSSwipeRight;
+    var FSListItemContent = (function () {
+        function FSListItemContent() {
+            this.icon = '';
+        }
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSListItemContent.prototype, "icon", void 0);
+        FSListItemContent = __decorate([
+            aurelia_framework_1.customElement('fs-item-content'),
+            aurelia_framework_1.useView('./fs-list-content.html'), 
+            __metadata('design:paramtypes', [])
+        ], FSListItemContent);
+        return FSListItemContent;
+    }());
+    exports.FSListItemContent = FSListItemContent;
     var FSListLink = (function () {
         function FSListLink(element) {
             this.element = element;
             this.class = '';
             this.icon = '';
             this.href = '#';
-            this.openIn = 'picker';
-            if (this.element.hasAttribute('card'))
-                this.class += ' card';
-            if (this.element.hasAttribute('accordion'))
-                this.class += ' accordion-item';
+            this.dataOpenIn = '';
+            this.dataSearchbar = "false";
+            this.dataSearchbarPlaceholder = "Search...";
+            this.dataPageTitle = "";
+            this.dataBackText = "";
+            this.dataBackOnSelect = "true";
         }
         FSListLink.prototype.bind = function () {
             if (this.element.hasAttribute('smart-select'))
                 this.__link.classList.add('smart-select');
             if (this.element.hasAttribute('external'))
                 this.__link.classList.add('external');
+            if (this.element.hasAttribute('card'))
+                this.class += ' card';
+            if (this.dataOpenIn != '')
+                this.__link.dataset['openIn'] = this.dataOpenIn;
         };
-        FSListLink.prototype.__fireClick = function () {
-            return sigma_ui_frameseven_1.FSEvent.fireEvent('click', this.element);
+        FSListLink.prototype.__fireEvent = function (event) {
+            return sigma_ui_frameseven_1.FSEvent.fireEvent(event, this.element);
         };
         __decorate([
             aurelia_framework_1.bindable(), 
@@ -254,10 +322,30 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         __decorate([
             aurelia_framework_1.bindable(), 
             __metadata('design:type', String)
-        ], FSListLink.prototype, "openIn", void 0);
+        ], FSListLink.prototype, "dataOpenIn", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSListLink.prototype, "dataSearchbar", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSListLink.prototype, "dataSearchbarPlaceholder", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSListLink.prototype, "dataPageTitle", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSListLink.prototype, "dataBackText", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', Object)
+        ], FSListLink.prototype, "dataBackOnSelect", void 0);
         FSListLink = __decorate([
             aurelia_framework_1.containerless(),
-            aurelia_framework_1.customElement('fs-list-link'),
+            aurelia_framework_1.customElement('fs-item-link'),
             aurelia_framework_1.useView('./fs-list-link.html'), 
             __metadata('design:paramtypes', [Element])
         ], FSListLink);

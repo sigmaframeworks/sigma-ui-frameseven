@@ -79,10 +79,6 @@ define(["require", "exports", "aurelia-framework", "aurelia-logging", "./fs-util
             framework7.menuPanel = "panel-" + framework7.params.swipePanel;
             setTimeout(function () {
                 framework7.initSwipePanels();
-                if (mainView.activePage)
-                    framework7.reinitPage(mainView.activePage.view.container);
-                if (loginView.activePage)
-                    framework7.reinitPage(loginView.activePage.view.container);
             }, 100);
         };
         Object.defineProperty(FSApplication.prototype, "Username", {

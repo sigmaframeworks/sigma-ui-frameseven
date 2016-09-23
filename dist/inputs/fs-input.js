@@ -29,12 +29,18 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             this.element = element;
             this.href = '#';
             this.class = '';
+            this.dataConfirm = '';
+            this.dataConfirmTitle = '';
+            this.dataCloseOnCancel = '';
             this.__extraClasses = '';
             if (element.hasAttribute('external'))
                 this.__extraClasses += 'external ';
             if (element.hasAttribute('accordion-toggle'))
                 this.__extraClasses += ' accordion-item-toggle';
         }
+        FSLink.prototype.attached = function () {
+            console.log(this.__link.dataset = this.element['dataset']);
+        };
         FSLink.prototype.__fireClick = function () {
             return sigma_ui_frameseven_1.FSEvent.fireEvent('click', this.element);
         };
@@ -46,10 +52,22 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             aurelia_framework_1.bindable(), 
             __metadata('design:type', String)
         ], FSLink.prototype, "class", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSLink.prototype, "dataConfirm", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSLink.prototype, "dataConfirmTitle", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSLink.prototype, "dataCloseOnCancel", void 0);
         FSLink = __decorate([
             aurelia_framework_1.containerless(),
             aurelia_framework_1.customElement('fs-link'),
-            aurelia_framework_1.inlineView('<template><a click.trigger="__fireClick()" class="link ${class} ${__extraClasses}" href.bind="href"><slot></slot></a></template>'), 
+            aurelia_framework_1.inlineView('<template><a ref="__link" click.trigger="__fireClick()" class="link ${class} ${__extraClasses}" href.bind="href" data-confirm.bind="dataConfirm" data-confirm-title.bind="dataConfirmTitle" data-close-on-cancel.bind="dataCloseOnCancel"><slot></slot></a></template>'), 
             __metadata('design:paramtypes', [Element])
         ], FSLink);
         return FSLink;

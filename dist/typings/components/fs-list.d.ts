@@ -5,13 +5,29 @@ export declare class FSList {
 }
 export declare class FSListBlock {
 }
+export declare class FSListGroup {
+    label: string;
+}
 export declare class FSListCard {
     element: Element;
     class: string;
     constructor(element: Element);
+    bind(): void;
 }
-export declare class FSListGroup {
-    label: string;
+export declare class FSListItem {
+    element: Element;
+    class: string;
+    private __listItem;
+    constructor(element: Element);
+    bind(): void;
+}
+export declare class FSListSwipeout {
+    element: Element;
+    class: string;
+    private __listItem;
+    constructor(element: Element);
+    bind(): void;
+    __fireEvent(event: any): any;
 }
 export declare class FSListLabel {
 }
@@ -32,25 +48,31 @@ export declare class FSListSubtitle {
 }
 export declare class FSListText {
 }
-export declare class FSListItem {
-    element: Element;
+export declare class FSAccordionContent {
     class: string;
-    icon: string;
-    constructor(element: Element);
 }
-export declare class FSNavRight {
-    class: string;
+export declare class FSSwipeLeft {
+}
+export declare class FSSwipeRight {
+}
+export declare class FSListItemContent {
+    icon: string;
 }
 export declare class FSListLink {
     element: Element;
     class: string;
     icon: string;
     href: string;
-    openIn: string;
+    dataOpenIn: string;
+    dataSearchbar: string;
+    dataSearchbarPlaceholder: string;
+    dataPageTitle: string;
+    dataBackText: string;
+    dataBackOnSelect: string;
     private __link;
     constructor(element: Element);
     bind(): void;
-    __fireClick(): any;
+    __fireEvent(event: any): any;
 }
 export declare class FSSearchbar {
     onsearch: any;
