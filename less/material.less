@@ -39,7 +39,7 @@ body {
     }
   }
 
-  .toolbar {
+  .toolbar:not(.tabbar) {
     background: #fafafa;
 
     a {
@@ -110,7 +110,7 @@ body {
       background: desaturate(lighten(@color,10%), 20%);
     }
 
-    .toolbar {
+    .toolbar:not(.tabbar) {
       background: #fafafa;
 
       &.toolbar-bottom {
