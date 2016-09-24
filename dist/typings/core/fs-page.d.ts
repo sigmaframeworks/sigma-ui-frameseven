@@ -43,6 +43,25 @@ export declare class FSPageContent {
 }
 export declare class FSToolbar {
 }
+export declare class FSTabContent {
+}
+export declare class FSTabbar {
+    private element;
+    constructor(element: Element);
+}
+export declare class FSTab {
+}
+export declare class FSTabLink {
+    private element;
+    href: string;
+    class: string;
+    icon: string;
+    label: string;
+    badgeClass: string;
+    badgeValue: string;
+    constructor(element: Element);
+    __fireClick(): any;
+}
 export declare class FSRow {
     element: Element;
     constructor(element: Element);

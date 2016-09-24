@@ -150,6 +150,47 @@ export class FSPageContent {
 @inlineView('<template class="toolbar toolbar-bottom"><div class="toolbar-inner"><slot></slot></div></template>')
 export class FSToolbar { }
 
+@customElement('fs-tab-content')
+@inlineView('<template class="page-content block"><div class="tabs-animated-wrap"><div class="tabs"><slot></slot></div></div></template>')
+export class FSTabContent { }
+
+@customElement('fs-tabbar')
+@inlineView('<template class="toolbar tabbar toolbar-bottom"><div class="toolbar-inner"><slot></slot></div></template>')
+export class FSTabbar {
+  constructor(private element: Element) {
+    if (this.element.hasAttribute('with-labels')) this.element.classList.add('tabbar-labels');
+  }
+}
+
+@customElement('fs-tab')
+@inlineView('<template class="tab"><slot></slot></template>')
+export class FSTab { }
+
+@containerless()
+@customElement('fs-tab-link')
+@inlineView('<template><a href.bind="href" class="tab-link ${class}" click.trigger="__fireClick()"><i class="icon ${icon}"><span if.bind="badgeValue" class="badge ${badgeClass}">${badgeValue}</span></i><span if.bind="label" class="tabbar-label">${label}</span></template>')
+export class FSTabLink {
+  @bindable()
+  href: string = '#';
+  @bindable()
+  class: string = '';
+  @bindable()
+  icon: string = '';
+  @bindable()
+  label: string = '';
+
+  @bindable()
+  badgeClass: string = '';
+  @bindable()
+  badgeValue: string = '';
+
+  constructor(private element: Element) { }
+
+  __fireClick() {
+    return FSEvent.fireEvent('click', this.element);
+  }
+}
+
 @customElement('fs-row')
 @inlineView('<template class="row"><slot></slot></template>')
 export class FSRow {

@@ -208,6 +208,88 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
         return FSToolbar;
     }());
     exports.FSToolbar = FSToolbar;
+    var FSTabContent = (function () {
+        function FSTabContent() {
+        }
+        FSTabContent = __decorate([
+            aurelia_framework_1.customElement('fs-tab-content'),
+            aurelia_framework_1.inlineView('<template class="page-content block"><div class="tabs-animated-wrap"><div class="tabs"><slot></slot></div></div></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSTabContent);
+        return FSTabContent;
+    }());
+    exports.FSTabContent = FSTabContent;
+    var FSTabbar = (function () {
+        function FSTabbar(element) {
+            this.element = element;
+            if (this.element.hasAttribute('with-labels'))
+                this.element.classList.add('tabbar-labels');
+        }
+        FSTabbar = __decorate([
+            aurelia_framework_1.customElement('fs-tabbar'),
+            aurelia_framework_1.inlineView('<template class="toolbar tabbar toolbar-bottom"><div class="toolbar-inner"><slot></slot></div></template>'), 
+            __metadata('design:paramtypes', [Element])
+        ], FSTabbar);
+        return FSTabbar;
+    }());
+    exports.FSTabbar = FSTabbar;
+    var FSTab = (function () {
+        function FSTab() {
+        }
+        FSTab = __decorate([
+            aurelia_framework_1.customElement('fs-tab'),
+            aurelia_framework_1.inlineView('<template class="tab"><slot></slot></template>'), 
+            __metadata('design:paramtypes', [])
+        ], FSTab);
+        return FSTab;
+    }());
+    exports.FSTab = FSTab;
+    var FSTabLink = (function () {
+        function FSTabLink(element) {
+            this.element = element;
+            this.href = '#';
+            this.class = '';
+            this.icon = '';
+            this.label = '';
+            this.badgeClass = '';
+            this.badgeValue = '';
+        }
+        FSTabLink.prototype.__fireClick = function () {
+            return sigma_ui_frameseven_1.FSEvent.fireEvent('click', this.element);
+        };
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSTabLink.prototype, "href", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSTabLink.prototype, "class", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSTabLink.prototype, "icon", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSTabLink.prototype, "label", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSTabLink.prototype, "badgeClass", void 0);
+        __decorate([
+            aurelia_framework_1.bindable(), 
+            __metadata('design:type', String)
+        ], FSTabLink.prototype, "badgeValue", void 0);
+        FSTabLink = __decorate([
+            aurelia_framework_1.containerless(),
+            aurelia_framework_1.customElement('fs-tab-link'),
+            aurelia_framework_1.inlineView('<template><a href.bind="href" class="tab-link ${class}" click.trigger="__fireClick()"><i class="icon ${icon}"><span if.bind="badgeValue" class="badge ${badgeClass}">${badgeValue}</span></i><span if.bind="label" class="tabbar-label">${label}</span></template>'), 
+            __metadata('design:paramtypes', [Element])
+        ], FSTabLink);
+        return FSTabLink;
+    }());
+    exports.FSTabLink = FSTabLink;
     var FSRow = (function () {
         function FSRow(element) {
             this.element = element;
