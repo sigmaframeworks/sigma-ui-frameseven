@@ -94,8 +94,6 @@ export class FSInput extends FSGenericInput {
     super();
   }
   attached() {
-    let input;
-    if (input = this.element.querySelector('input')) input.onfocus = () => input.scrollIntoView(true);
   }
 }
 
