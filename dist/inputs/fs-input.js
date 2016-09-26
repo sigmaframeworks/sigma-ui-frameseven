@@ -141,9 +141,6 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
             this.icon = '';
         }
         FSInput.prototype.attached = function () {
-            var input;
-            if (input = this.element.querySelector('input'))
-                input.onfocus = function () { return input.scrollIntoView(true); };
         };
         __decorate([
             aurelia_framework_1.bindable(), 

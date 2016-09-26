@@ -48,7 +48,7 @@ define(["require", "exports", "aurelia-framework"], function (require, exports, 
         };
         FSSlide = __decorate([
             aurelia_framework_1.customElement('fs-slide'),
-            aurelia_framework_1.inlineView('<template class="swiper-slide block"><slot></slot></template>'), 
+            aurelia_framework_1.inlineView('<template class="swiper-slide swiper-lazy block"><slot></slot></template>'), 
             __metadata('design:paramtypes', [])
         ], FSSlide);
         return FSSlide;

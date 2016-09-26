@@ -31,7 +31,10 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                     _this.element.classList.add('navbar-fixed');
                 if (_this.element.querySelector('fs-toolbar'))
                     _this.element.classList.add('toolbar-through');
-                setTimeout(function () { return framework7.initSmartSelects(_this.element); }, 500);
+                setTimeout(function () {
+                    framework7.initSmartSelects(_this.element);
+                    framework7.initImagesLazyLoad(_this.element);
+                }, 500);
             });
         };
         __decorate([
@@ -74,7 +77,10 @@ define(["require", "exports", "aurelia-framework", "../sigma-ui-frameseven"], fu
                 if (_this.element.querySelector('fs-toolbar'))
                     _this.element.classList.add('toolbar-through');
                 framework7.popup(_this.element, true);
-                setTimeout(function () { return framework7.initSmartSelects(_this.element); }, 500);
+                setTimeout(function () {
+                    framework7.initSmartSelects(_this.element);
+                    framework7.initImagesLazyLoad(_this.element);
+                }, 500);
             });
         };
         FSPopup.prototype.close = function () {
