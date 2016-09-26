@@ -31,7 +31,10 @@ export class FSPage {
       Dom7(`[data-page="${this.dataPage}"] a.external`).click(a => { if (a.target.dataset.url) window.open(a.target.dataset.url, '_system', 'location=yes'); });
       if (this.element.querySelector('fs-navbar')) this.element.classList.add('navbar-fixed');
       if (this.element.querySelector('fs-toolbar')) this.element.classList.add('toolbar-through');
-      setTimeout(() => framework7.initSmartSelects(this.element), 500);
+      setTimeout(() => {
+        framework7.initSmartSelects(this.element);
+        framework7.initImagesLazyLoad(this.element);
+      }, 500);
     });
   }
 }
@@ -65,7 +68,10 @@ export class FSPopup {
       if (this.element.querySelector('fs-navbar')) this.element.classList.add('navbar-fixed');
       if (this.element.querySelector('fs-toolbar')) this.element.classList.add('toolbar-through');
       framework7.popup(this.element, true);
-      setTimeout(() => framework7.initSmartSelects(this.element), 500);
+      setTimeout(() => {
+        framework7.initSmartSelects(this.element);
+        framework7.initImagesLazyLoad(this.element);
+      }, 500);
     });
   }
 
