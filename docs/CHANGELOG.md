@@ -1,3 +1,9 @@
+<a name="0.0.2-beta.2"></a>
+## 0.0.2-beta.2 (2016-09-24)
+
+* Added tab layout elements
+
+
 <a name="0.0.2-beta.1"></a>
 ## 0.0.2-beta.1 (2016-09-23)
 
