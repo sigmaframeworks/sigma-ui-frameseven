@@ -10,7 +10,11 @@
 @import "_common.less";
 
 .theme-override(@theme, @color) {
-  .theme-@{theme} {
+  .navbar-@{theme} {
+    .statusbar-overlay {
+      background: @color;
+    }
+
     .navbar {
       background: @color;
       color     : @white;
@@ -19,13 +23,19 @@
         color: @white;
       }
     }
+  }
 
+  .theme-@{theme} {
     .label-switch input[type="checkbox"]:checked + .checkbox {
       background: @color;
     }
 
     .menu-list .list-item.active {
       border-color: @color;
+    }
+
+    .bg-theme {
+      background: @color;
     }
 
     .searchbar {

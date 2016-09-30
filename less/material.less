@@ -20,6 +20,15 @@
       background: desaturate(lighten(@color,10%), 20%);
     }
 
+    .navbar {
+      background: @navBarBg;
+      color     : @navBarColor;
+
+      a {
+        color: @navBarColor;
+      }
+    }
+
     .toolbar:not(.tabbar) {
       background: #fafafa;
 
@@ -31,11 +40,31 @@
         .hairline( bottom, #e5e5e5);
       }
 
+      .bg-theme {
+        background: @color;
+      }
+
       a.link {
         color: @color;
       }
     }
   }
+
+  .navbar-@{theme} {
+    .statusbar-overlay {
+      background: @color;
+    }
+
+    .navbar {
+      background: @color !important;
+      color     : @white !important;
+
+      a {
+        color: @white !important;
+      }
+    }
+  }
+
 }
 .theme-mixin(e(  'default'), @themeColor, color(@themeColor));
 .theme-mixin(e(  'alternate'), @alternateColor, color(@alternateColor));
@@ -78,15 +107,6 @@ body {
 
   .menu-list .list-item {
     -webkit-border-start: 5px solid transparent;
-  }
-
-  .navbar {
-    background: @navBarBg;
-    color     : @navBarColor;
-
-    a {
-      color: @navBarColor;
-    }
   }
 
   .toolbar:not(.tabbar) {
