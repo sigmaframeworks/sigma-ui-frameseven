@@ -10,6 +10,56 @@
 @import "_device-extras.less";
 @import "_common.less";
 
+.theme-override(@theme, @color) {
+  .theme-@{theme} {
+    .menu-list .list-item.active {
+      border-color: @color;
+    }
+
+    .searchbar {
+      background: desaturate(lighten(@color,10%), 20%);
+    }
+
+    .toolbar:not(.tabbar) {
+      background: #fafafa;
+
+      &.toolbar-bottom {
+        .hairline( top, #e5e5e5);
+      }
+
+      &.toolbar-top {
+        .hairline( bottom, #e5e5e5);
+      }
+
+      a.link {
+        color: @color;
+      }
+    }
+  }
+}
+.theme-mixin(e(  'default'), @themeColor, color(@themeColor));
+.theme-mixin(e(  'alternate'), @alternateColor, color(@alternateColor));
+.theme-override(e(  'default'), @themeColor);
+.theme-override(e(  'alternate'), @alternateColor);
+.theme-override(e(  'red'), @red);
+.theme-override(e(  'pink'), @pink);
+.theme-override(e(  'purple'), @purple);
+.theme-override(e(  'deeppurple'), @deeppurple);
+.theme-override(e(  'indigo'), @indigo);
+.theme-override(e(  'blue'), @blue);
+.theme-override(e(  'lightblue'), @lightblue);
+.theme-override(e(  'cyan'), @cyan);
+.theme-override(e(  'teal'), @teal);
+.theme-override(e(  'green'), @green);
+.theme-override(e(  'lightgreen'), @lightgreen);
+.theme-override(e(  'lime'), @lime);
+.theme-override(e(  'yellow'), @yellow);
+.theme-override(e(  'amber'), @amber);
+.theme-override(e(  'orange'), @orange);
+.theme-override(e(  'deeporange'), @deeporange);
+.theme-override(e(  'brown'), @brown);
+.theme-override(e(  'bluegray'), @bluegray);
+
 body {
   &.layout-dark {
     .notifications.list-block > ul {
@@ -99,53 +149,3 @@ body {
     }
   }
 }
-
-.theme-override(@theme, @color) {
-  .theme-@{theme} {
-    .menu-list .list-item.active {
-      border-color: @color;
-    }
-
-    .searchbar {
-      background: desaturate(lighten(@color,10%), 20%);
-    }
-
-    .toolbar:not(.tabbar) {
-      background: #fafafa;
-
-      &.toolbar-bottom {
-        .hairline( top, #e5e5e5);
-      }
-
-      &.toolbar-top {
-        .hairline( bottom, #e5e5e5);
-      }
-
-      a.link {
-        color: @color;
-      }
-    }
-  }
-}
-.theme-mixin(e(  'default'), @themeColor, color(@themeColor));
-.theme-mixin(e(  'alternate'), @alternateColor, color(@alternateColor));
-.theme-override(e(  'default'), @themeColor);
-.theme-override(e(  'alternate'), @alternateColor);
-.theme-override(e(  'red'), @red);
-.theme-override(e(  'pink'), @pink);
-.theme-override(e(  'purple'), @purple);
-.theme-override(e(  'deeppurple'), @deeppurple);
-.theme-override(e(  'indigo'), @indigo);
-.theme-override(e(  'blue'), @blue);
-.theme-override(e(  'lightblue'), @lightblue);
-.theme-override(e(  'cyan'), @cyan);
-.theme-override(e(  'teal'), @teal);
-.theme-override(e(  'green'), @green);
-.theme-override(e(  'lightgreen'), @lightgreen);
-.theme-override(e(  'lime'), @lime);
-.theme-override(e(  'yellow'), @yellow);
-.theme-override(e(  'amber'), @amber);
-.theme-override(e(  'orange'), @orange);
-.theme-override(e(  'deeporange'), @deeporange);
-.theme-override(e(  'brown'), @brown);
-.theme-override(e(  'bluegray'), @bluegray);

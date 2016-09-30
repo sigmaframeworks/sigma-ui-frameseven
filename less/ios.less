@@ -3,12 +3,74 @@
 // @author      : Adarsh Pastakia
 // @copyright   : 2016 Sigma Frameworks
 // @license     : MIT
-
-// @import "_device-vars.less";
+@import "_device-vars.less";
 @import "framework7.ios.less";
 @import "framework7.ios.colors.less";
 @import "_device-extras.less";
 @import "_common.less";
+
+.theme-override(@theme, @color) {
+  .theme-@{theme} {
+    .navbar {
+      background: @color;
+      color     : @white;
+
+      a {
+        color: @white;
+      }
+    }
+
+    .label-switch input[type="checkbox"]:checked + .checkbox {
+      background: @color;
+    }
+
+    .menu-list .list-item.active {
+      border-color: @color;
+    }
+
+    .searchbar {
+      background: desaturate(lighten(@color,10%), 20%);
+
+      .searchbar-cancel {
+        color: @white;
+      }
+    }
+  }
+}
+.theme-mixin(e(  'default'), @themeColor, color(@themeColor));
+.theme-mixin(e(  'alternate'), @alternateColor, color(@alternateColor));
+.theme-mixin(e(  'purple'), @purple, #7B1FA2);
+.theme-mixin(e(  'deeppurple'), @deeppurple, #512DA8);
+.theme-mixin(e(  'indigo'), @indigo, #303F9F);
+.theme-mixin(e(  'cyan'), @cyan, #0097A7);
+.theme-mixin(e(  'teal'), @teal, #00897B);
+.theme-mixin(e(  'lightgreen'), @lightgreen, #689F38);
+.theme-mixin(e(  'lime'), @lime, #AFB42B);
+.theme-mixin(e(  'amber'), @amber, #FFA000);
+.theme-mixin(e(  'deeporange'), @deeporange, #E64A19);
+.theme-mixin(e(  'brown'), @brown, #5D4037);
+.theme-mixin(e(  'bluegray'), @bluegray, #455A64);
+.theme-override(e(  'default'), @themeColor);
+.theme-override(e(  'red'), @red);
+.theme-override(e(  'pink'), @pink);
+.theme-override(e(  'purple'), @purple);
+.theme-override(e(  'deeppurple'), @deeppurple);
+.theme-override(e(  'indigo'), @indigo);
+.theme-override(e(  'blue'), @blue);
+.theme-override(e(  'lightblue'), @lightblue);
+.theme-override(e(  'cyan'), @cyan);
+.theme-override(e(  'teal'), @teal);
+.theme-override(e(  'green'), @green);
+.theme-override(e(  'lightgreen'), @lightgreen);
+.theme-override(e(  'lime'), @lime);
+.theme-override(e(  'yellow'), @yellow);
+.theme-override(e(  'amber'), @amber);
+.theme-override(e(  'orange'), @orange);
+.theme-override(e(  'deeporange'), @deeporange);
+.theme-override(e(  'brown'), @brown);
+.theme-override(e(  'bluegray'), @bluegray);
+.theme-override(e(  'gray'), @gray);
+.theme-override(e(  'black'), @black);
 
 body {
   &.layout-dark {
@@ -114,66 +176,3 @@ body {
     }
   }
 }
-
-.theme-override(@theme, @color) {
-  .theme-@{theme} {
-    .navbar {
-      background: @color !important;
-      color     : @white !important;
-
-      a {
-        color: @white !important;
-      }
-    }
-
-    .label-switch input[type="checkbox"]:checked + .checkbox {
-      background: @color;
-    }
-
-    .menu-list .list-item.active {
-      border-color: @color;
-    }
-
-    .searchbar {
-      background: desaturate(lighten(@color,10%), 20%);
-
-      .searchbar-cancel {
-        color: @white !important;
-      }
-    }
-  }
-}
-.theme-mixin(e(  'default'), @themeColor, color(@themeColor));
-.theme-mixin(e(  'alternate'), @alternateColor, color(@alternateColor));
-.theme-mixin(e(  'purple'), @purple, #7B1FA2);
-.theme-mixin(e(  'deeppurple'), @deeppurple, #512DA8);
-.theme-mixin(e(  'indigo'), @indigo, #303F9F);
-.theme-mixin(e(  'cyan'), @cyan, #0097A7);
-.theme-mixin(e(  'teal'), @teal, #00897B);
-.theme-mixin(e(  'lightgreen'), @lightgreen, #689F38);
-.theme-mixin(e(  'lime'), @lime, #AFB42B);
-.theme-mixin(e(  'amber'), @amber, #FFA000);
-.theme-mixin(e(  'deeporange'), @deeporange, #E64A19);
-.theme-mixin(e(  'brown'), @brown, #5D4037);
-.theme-mixin(e(  'bluegray'), @bluegray, #455A64);
-.theme-override(e(  'default'), @themeColor);
-.theme-override(e(  'red'), @red);
-.theme-override(e(  'pink'), @pink);
-.theme-override(e(  'purple'), @purple);
-.theme-override(e(  'deeppurple'), @deeppurple);
-.theme-override(e(  'indigo'), @indigo);
-.theme-override(e(  'blue'), @blue);
-.theme-override(e(  'lightblue'), @lightblue);
-.theme-override(e(  'cyan'), @cyan);
-.theme-override(e(  'teal'), @teal);
-.theme-override(e(  'green'), @green);
-.theme-override(e(  'lightgreen'), @lightgreen);
-.theme-override(e(  'lime'), @lime);
-.theme-override(e(  'yellow'), @yellow);
-.theme-override(e(  'amber'), @amber);
-.theme-override(e(  'orange'), @orange);
-.theme-override(e(  'deeporange'), @deeporange);
-.theme-override(e(  'brown'), @brown);
-.theme-override(e(  'bluegray'), @bluegray);
-.theme-override(e(  'gray'), @gray);
-.theme-override(e(  'black'), @black);
